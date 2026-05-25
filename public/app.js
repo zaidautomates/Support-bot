@@ -382,6 +382,81 @@ async function initChatPage() {
   const dName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
   if (modelLabel) modelLabel.textContent = `${dName.toUpperCase()} · KOLACHI RESTAURANT · GROQ`;
 
+  // Keyboard awareness listener: dynamically size .main-wrap to visual viewport height
+  if (window.visualViewport) {
+    const mainWrap = document.querySelector('.main-wrap');
+    if (mainWrap) {
+      const handleVisualResize = () => {
+        mainWrap.style.height = `${window.visualViewport.height}px`;
+      };
+      window.visualViewport.addEventListener('resize', handleVisualResize);
+      window.visualViewport.addEventListener('scroll', handleVisualResize);
+      // Run once on load to ensure sync
+      setTimeout(handleVisualResize, 200);
+    }
+  }
+
+  // Live Share Feature
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      const msgBubbles = document.querySelectorAll('.messages-area .msg');
+      // If we are showing emptyState or have no messages, do not share
+      const emptyState = document.getElementById('emptyState');
+      const isEmpty = emptyState && emptyState.style.display !== 'none';
+      if (isEmpty || msgBubbles.length === 0) {
+        triggerLocalToast("No conversation logs to share yet! 🍽️", "info");
+        return;
+      }
+
+      const msgs = [];
+      msgBubbles.forEach(el => {
+        const isUser = el.classList.contains('user');
+        const bubble = el.querySelector('.msg-bubble');
+        if (bubble) {
+          const content = bubble.innerText || bubble.textContent;
+          msgs.push({
+            role: isUser ? 'Guest' : 'Kolachi AI',
+            content: content.trim()
+          });
+        }
+      });
+
+      if (msgs.length === 0) {
+        triggerLocalToast("No conversation logs to share yet! 🍽️", "info");
+        return;
+      }
+
+      const dateStr = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const guestName = currentUser ? (currentUser.user_metadata?.full_name || currentUser.email.split('@')[0]) : 'Valued Diner';
+      const sessionUrl = window._ncConversationId ? `${window.location.origin}/chat?c=${window._ncConversationId}` : '';
+
+      let text = `🍽️ KOLACHI RESTAURANT · SEASIDE DINING AI TRANSCRIPT\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `Date: ${dateStr}\n`;
+      text += `Guest: ${guestName}\n`;
+      if (sessionUrl) {
+        text += `Session URL: ${sessionUrl}\n`;
+      }
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      msgs.forEach(m => {
+        text += `${m.role === 'Guest' ? '👤 Guest' : '✨ Kolachi AI'}:\n${m.content}\n\n`;
+      });
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `🌊 "Dine with the waves at DHA Clifton Seafront, Karachi."\n`;
+      text += `📞 Reservations: +92-21-111-111-001 | reservations@kolachi.pk\n`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        triggerLocalToast("Dining transcript copied to clipboard! 📋✨", "success");
+      }).catch(err => {
+        console.error("Clipboard copy failed:", err);
+        triggerLocalToast("Failed to copy transcript to clipboard.", "error");
+      });
+    });
+  }
+
   // Expose conversations helpers to window so chat.html can access them
   window.loadConversations = async function() {
     const chatHistory = document.getElementById('chatHistory');

@@ -583,6 +583,26 @@
       display: none !important; /* Hide keyboard shortcut hints on mobile */
     }
   }
+
+  /* ── Toast Alert ── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(20,22,36,0.97);
+    border: 1.5px solid rgba(251,191,36,0.3);
+    backdrop-filter: blur(16px);
+    border-radius: 14px; padding: 11px 18px;
+    color: var(--text); font-size: 13.5px;
+    display: flex; align-items: center; gap: 9px;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+    opacity: 0; z-index: 999; white-space: nowrap; pointer-events: none;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 20px rgba(251,191,36,0.15);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast .t-icon {
+    font-family: 'Material Symbols Outlined'; font-size: 17px;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/app.js" defer></script>
@@ -673,6 +693,7 @@
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:0.75rem">
+      <button class="icon-btn" id="shareBtn" title="Share Conversation" style="font-family:'Material Symbols Outlined'">share</button>
       <a href="/settings" class="icon-btn" title="Settings" style="font-family:'Material Symbols Outlined';text-decoration:none;display:flex;align-items:center;justify-content:center">settings</a>
       <button class="icon-btn" title="More" style="font-family:'Material Symbols Outlined'">more_vert</button>
     </div>
@@ -1213,5 +1234,12 @@ document.addEventListener('click', e => {
   setTimeout(() => window.location.href = h, 340);
 });
 </script>
+
+<!-- Toast alert -->
+<div class="toast" id="toast">
+  <span class="t-icon material-symbols-outlined" id="toast-icon">info</span>
+  <span id="toast-msg"></span>
+</div>
+
 </body>
 </html>
