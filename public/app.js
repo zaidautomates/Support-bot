@@ -380,7 +380,13 @@ async function initChatPage() {
   // topbar context
   const modelLabel = document.getElementById('modelLabel');
   const dName = currentUser.user_metadata?.full_name || currentUser.email.split('@')[0];
-  if (modelLabel) modelLabel.textContent = `${dName.toUpperCase()} · KOLACHI RESTAURANT · GROQ`;
+  if (modelLabel) {
+    if (window.innerWidth <= 768) {
+      modelLabel.textContent = "KOLACHI DINING AI";
+    } else {
+      modelLabel.textContent = `${dName.toUpperCase()} · KOLACHI RESTAURANT · GROQ`;
+    }
+  }
 
   // Keyboard awareness listener: dynamically size .main-wrap to visual viewport height
   if (window.visualViewport) {

@@ -477,23 +477,56 @@
     .topbar .menu-toggle-btn {
       display: flex !important;
       order: 1 !important;
+      width: 38px !important;
+      height: 38px !important;
+      border-radius: 50% !important;
+      background: rgba(255,255,255,0.03) !important;
+      border: 1px solid rgba(255,255,255,0.06) !important;
+      color: var(--primary) !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-right: 0 !important;
     }
-    .topbar > div:first-child {
+    .topbar > div:first-of-type {
       order: 2 !important;
       flex: 1 !important;
       display: flex !important;
       justify-content: center !important;
       text-align: center !important;
     }
-    .topbar > div:last-child {
+    .topbar > div:last-of-type {
       order: 3 !important;
       display: flex !important;
       gap: 0.5rem !important;
       align-items: center !important;
     }
+    .topbar .icon-btn {
+      width: 36px !important;
+      height: 36px !important;
+      border-radius: 50% !important;
+      background: rgba(255,255,255,0.03) !important;
+      border: 1px solid rgba(255,255,255,0.06) !important;
+      color: rgba(202,196,212,0.8) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 17px !important;
+      transition: all 0.2s !important;
+    }
+    .topbar .icon-btn:hover {
+      background: rgba(245, 158, 11, 0.08) !important;
+      border-color: rgba(245, 158, 11, 0.22) !important;
+      color: var(--primary) !important;
+    }
+    .topbar button[title="More"] {
+      display: none !important; /* Hide More vertical dots on mobile */
+    }
     #modelLabel {
-      font-size: 9px !important;
-      letter-spacing: 0.05em !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      font-family: 'Satoshi', sans-serif !important;
+      letter-spacing: -0.1px !important;
+      color: var(--primary) !important;
       text-align: center !important;
       white-space: nowrap !important;
     }
