@@ -906,6 +906,33 @@ footer::before {
   .foot-top { flex-direction: column; gap: 1.8rem; }
   footer { padding: 2.5rem 1.25rem 1.5rem; }
   .foot-bottom { flex-direction: column; text-align: center; gap: 0.6rem; font-size: 11.5px; }
+
+  /* Mobile scrolling optimizations: smooth like water! */
+  .bg-gradient {
+    animation: none !important;
+    background-size: 100% 100% !important;
+  }
+  .aurora {
+    animation: none !important;
+    filter: blur(14px) !important;
+    will-change: auto !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+  .blob {
+    animation: none !important;
+    filter: blur(14px) !important;
+    will-change: auto !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+  .ptc-layer {
+    display: none !important; /* Hide floating particles on mobile viewports to ease scroll overhead */
+  }
+  .noise {
+    opacity: 0.02 !important; /* Extremely low opacity noise to prevent GPU compositing overhead */
+  }
+  * {
+    -webkit-overflow-scrolling: touch; /* Momentum scrolling on touch devices */
+  }
 }
 
 
@@ -1501,6 +1528,7 @@ document.addEventListener('mousemove', e => {
   myT = (e.clientY/window.innerHeight - 0.5)*2;
 });
 (function animBlobs(){
+  if (window.innerWidth <= 768) return; // Skip background parallax loops on mobile viewports to prevent scrolling lag
   mxC += (mxT-mxC)*0.06;
   myC += (myT-myC)*0.06;
   document.querySelectorAll('.blob').forEach((b,i) => {
@@ -1606,46 +1634,50 @@ window.addEventListener('scroll', () => {
 const tiltEls = document.querySelectorAll('.feat-card, .price-card, .glass, .clay, .aurora-card');
 const TILT_MAX = 12; // degrees
 
-tiltEls.forEach(card => {
-  card.style.transition = 'transform 0.15s ease, box-shadow 0.3s';
-  card.addEventListener('mousemove', e => {
-    const r = card.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    const cy = r.top + r.height / 2;
-    const dx = (e.clientX - cx) / (r.width / 2);
-    const dy = (e.clientY - cy) / (r.height / 2);
-    const rotX = -dy * TILT_MAX;
-    const rotY = dx * TILT_MAX;
-    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.025) translateZ(10px)`;
-    // Dynamic shine
-    const shine = `radial-gradient(circle at ${((dx+1)/2*100).toFixed(0)}% ${((dy+1)/2*100).toFixed(0)}%, rgba(255,255,255,0.08) 0%, transparent 65%)`;
-    card.style.backgroundImage = card.style.backgroundImage
-      ? card.style.backgroundImage
-      : '';
-    card.dataset.origBg = card.dataset.origBg || '';
+if (window.innerWidth > 768) {
+  tiltEls.forEach(card => {
+    card.style.transition = 'transform 0.15s ease, box-shadow 0.3s';
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = (e.clientX - cx) / (r.width / 2);
+      const dy = (e.clientY - cy) / (r.height / 2);
+      const rotX = -dy * TILT_MAX;
+      const rotY = dx * TILT_MAX;
+      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.025) translateZ(10px)`;
+      // Dynamic shine
+      const shine = `radial-gradient(circle at ${((dx+1)/2*100).toFixed(0)}% ${((dy+1)/2*100).toFixed(0)}%, rgba(255,255,255,0.08) 0%, transparent 65%)`;
+      card.style.backgroundImage = card.style.backgroundImage
+        ? card.style.backgroundImage
+        : '';
+      card.dataset.origBg = card.dataset.origBg || '';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0)';
+    });
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0)';
-  });
-});
+}
 
 // ── 4. MAGNETIC BUTTONS (pull toward cursor within 80px radius)
 const magnetBtns = document.querySelectorAll('.btn-hero, .btn-outline');
-magnetBtns.forEach(btn => {
-  btn.addEventListener('mousemove', e => {
-    const r = btn.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    const cy = r.top + r.height / 2;
-    const dx = (e.clientX - cx) * 0.28;
-    const dy = (e.clientY - cy) * 0.28;
-    btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.04)`;
-    btn.style.transition = 'transform 0.18s cubic-bezier(0.25,0.46,0.45,0.94)';
+if (window.innerWidth > 768) {
+  magnetBtns.forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = (e.clientX - cx) * 0.28;
+      const dy = (e.clientY - cy) * 0.28;
+      btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.04)`;
+      btn.style.transition = 'transform 0.18s cubic-bezier(0.25,0.46,0.45,0.94)';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0,0) scale(1)';
+      btn.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+    });
   });
-  btn.addEventListener('mouseleave', () => {
-    btn.style.transform = 'translate(0,0) scale(1)';
-    btn.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
-  });
-});
+}
 </script>
 
 </body>
