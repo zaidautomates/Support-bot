@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kolachi Restaurant — Clifton Beach Karachi | Seaside Fine Dining</title>
+<meta name="description" content="Kolachi Restaurant — Where the sea meets the plate. Iconic Clifton Beach fine dining, AI-powered guest relations, and Karachi's most breathtaking seaside deck."/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Satoshi:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #06060A;
+  --surface: #0E0D14;
+  --card-bg: rgba(16, 15, 23, 0.78);
+  --border: rgba(245, 158, 11, 0.18);
+  --border-hover: rgba(245, 158, 11, 0.48);
+  --gold: #FBBF24;
+  --gold-deep: #B45309;
+  --violet: #A78BFA;
+  --violet-deep: #7C3AED;
+  --cyan: #67E8F9;
+  --teal: #2DD4BF;
+  --rose: #FB7185;
+  --orange: #FB923C;
+  --text: #F4F4F5;
+  --muted: rgba(212, 212, 216, 0.62);
+  --r24: 24px;
+  --r20: 20px;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+html::-webkit-scrollbar { width: 5px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.22); border-radius: 10px; }
+
+body {
+  font-family: 'Satoshi', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  overflow-y: visible;
+  background: var(--bg);
+}
+
+/* =====================================================
+   ANIMATED MULTI-LAYER BACKGROUND
+===================================================== */
+.bg-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+/* gradient base */
+@keyframes gradSweep {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.bg-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(-40deg, #06060A, #0E0A1C, #130C22, #080819, #06060A);
+  background-size: 600% 600%;
+  animation: gradSweep 12s ease infinite;
+}
+
+/* aurora strips */
+@keyframes auroraMove {
+  0%   { transform: translateX(-30%) skewX(-12deg); opacity: 0.06; }
+  50%  { transform: translateX(30%) skewX(12deg);  opacity: 0.1; }
+  100% { transform: translateX(-30%) skewX(-12deg); opacity: 0.06; }
+}
+.aurora {
+  position: absolute;
+  height: 140px;
+  left: -20%;
+  right: -20%;
+  border-radius: 50%;
+  animation: auroraMove 16s ease-in-out infinite;
+  filter: blur(30px);
+}
+.au1 { top: 12%; background: linear-gradient(90deg, transparent, rgba(167,139,250,0.35), transparent); animation-delay: 0s; animation-duration: 14s; }
+.au2 { top: 45%; background: linear-gradient(90deg, transparent, rgba(251,191,36,0.25), transparent); animation-delay: -5s; animation-duration: 19s; }
+.au3 { top: 72%; background: linear-gradient(90deg, transparent, rgba(45,212,191,0.2), transparent); animation-delay: -9s; animation-duration: 22s; }
+
+/* morphing blobs */
+@keyframes morphBlob {
+  0%,100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  20%      { border-radius: 65% 35% 50% 50% / 55% 40% 60% 45%; }
+  40%      { border-radius: 70% 30% 45% 55% / 30% 30% 70% 70%; }
+  60%      { border-radius: 35% 65% 60% 40% / 60% 55% 35% 45%; }
+  80%      { border-radius: 55% 45% 35% 65% / 45% 65% 35% 55%; }
+}
+.blob {
+  position: absolute;
+  filter: blur(16px);
+  animation: morphBlob 14s ease-in-out infinite;
+  will-change: border-radius, transform;
+}
+.b1 { width: 55%; height: 58%; top: -14%; left: -12%; background: radial-gradient(ellipse at 40% 40%, rgba(167,139,250,0.28), transparent 65%); animation-duration: 16s; }
+.b2 { width: 42%; height: 45%; bottom: -10%; right: -10%; background: radial-gradient(ellipse at 60% 60%, rgba(103,232,249,0.22), transparent 65%); animation-delay: -5s; animation-duration: 12s; }
+.b3 { width: 32%; height: 35%; top: 30%; left: 38%; background: radial-gradient(ellipse at 50% 50%, rgba(251,191,36,0.18), transparent 65%); animation-delay: -8s; animation-duration: 18s; }
+.b4 { width: 22%; height: 24%; bottom: 18%; left: 8%; background: radial-gradient(ellipse at 50% 50%, rgba(45,212,191,0.18), transparent 65%); animation-delay: -3s; animation-duration: 13s; }
+.b5 { width: 18%; height: 20%; top: 20%; right: 5%; background: radial-gradient(ellipse at 50% 50%, rgba(251,146,60,0.14), transparent 65%); animation-delay: -11s; animation-duration: 10s; }
+
+/* noise overlay for texture */
+.noise {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+@keyframes ptcRise {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  35%  { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1.1); opacity: 0; }
+}
+.ptc-layer { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.ptc { position: absolute; border-radius: 50%; }
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+@keyframes navIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1.25rem, 5vw, 4rem);
+  height: 66px;
+  background: rgba(6, 6, 10, 0.55);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  animation: navIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+.nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 5%; right: 5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent);
+}
+
+/* brand + spinning logo */
+@keyframes spin1 { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes spin2 { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+
+.brand { display:flex;align-items:center;gap:0.75rem;text-decoration:none;cursor:pointer; }
+.brand-logo {
+  width:42px;height:42px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(20,18,34,0.97),rgba(12,10,24,0.99));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;flex-shrink:0;
+  box-shadow:0 0 28px rgba(167,139,250,0.2),inset 0 1px 0 rgba(255,255,255,0.08);
+  border:1px solid rgba(251,191,36,0.16);
+}
+.brand-logo .r1 { position:absolute;inset:-6px;border:1.5px solid rgba(251,191,36,0.28);border-radius:18px;animation:spin1 9s linear infinite; }
+.brand-logo .r2 { position:absolute;inset:-12px;border:1px dashed rgba(167,139,250,0.16);border-radius:24px;animation:spin2 16s linear infinite; }
+.brand-logo .ico { font-family:'Material Symbols Outlined';font-size:22px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;position:relative;z-index:1; }
+.brand-name { font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:-0.3px; }
+.brand-name em { color:var(--gold);font-style:normal; }
+
+.nav-links { display:flex;align-items:center;gap:0.2rem; }
+.nl { font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;padding:0.42rem 0.82rem;border-radius:10px;transition:all 0.2s;cursor:pointer;background:transparent;border:none;font-family:'Satoshi',sans-serif; }
+.nl:hover { color:var(--text);background:rgba(255,255,255,0.06); }
+
+.nav-actions { display:flex;align-items:center;gap:0.55rem; }
+.btn-ghost { font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;padding:0.48rem 1.1rem;border:1px solid rgba(255,255,255,0.1);border-radius:11px;transition:all 0.2s;cursor:pointer;background:none;font-family:'Satoshi',sans-serif; }
+.btn-ghost:hover { color:var(--text);border-color:rgba(255,255,255,0.22); }
+.btn-gold {
+  font-size:13.5px;font-weight:700;color:#0a0910;
+  background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+  text-decoration:none;padding:0.52rem 1.3rem;border-radius:11px;
+  box-shadow:0 6px 22px -4px rgba(251,191,36,0.42);
+  transition:all 0.28s cubic-bezier(0.175,0.885,0.32,1.275);
+  border:none;cursor:pointer;display:inline-flex;align-items:center;gap:0.4rem;font-family:'Satoshi',sans-serif;
+}
+.btn-gold:hover { transform:translateY(-2px);box-shadow:0 10px 30px -4px rgba(251,191,36,0.6); }
+.btn-gold:active { transform:scale(0.97); }
+
+/* =====================================================
+   MAIN
+===================================================== */
+main { position:relative;z-index:10;padding-top:66px; }
+
+/* =====================================================
+   HERO
+===================================================== */
+@keyframes heroFade { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes glowPulse { 0%,100%{box-shadow:0 0 30px rgba(251,191,36,0.2),0 0 80px rgba(167,139,250,0.08)} 50%{box-shadow:0 0 50px rgba(251,191,36,0.35),0 0 120px rgba(167,139,250,0.16)} }
+@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+@keyframes orbBadge { 0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,0.4)} 60%{box-shadow:0 0 0 10px rgba(251,191,36,0)} }
+
+.hero {
+  min-height: calc(100vh - 66px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding: 4rem clamp(1.25rem, 6vw, 5rem) 7rem;
+  position:relative;
+}
+
+/* Centered glow disc behind hero logo */
+.hero-glow {
+  position:absolute;top:40%;left:50%;
+  transform:translate(-50%,-50%);
+  width:500px;height:500px;
+  background:radial-gradient(ellipse at 50% 50%, rgba(167,139,250,0.06) 0%, rgba(251,191,36,0.03) 40%, transparent 70%);
+  pointer-events:none;border-radius:50%;
+}
+
+.h-badge {
+  display:inline-flex;align-items:center;gap:0.55rem;
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
+  color:var(--gold);background:rgba(251,191,36,0.07);
+  border:1px solid rgba(251,191,36,0.22);border-radius:100px;
+  padding:0.42rem 1.1rem;margin-bottom:2.5rem;letter-spacing:0.08em;
+  text-transform:uppercase;
+  animation:heroFade 0.7s 0.1s both, orbBadge 3s 1.5s infinite;
+}
+.h-badge-dot { width:7px;height:7px;background:var(--gold);border-radius:50%;animation:orbBadge 2s infinite; }
+
+/* Big hero logo with multiple orbit rings */
+.h-logo {
+  position:relative;width:108px;height:108px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,rgba(14,13,24,0.98),rgba(8,7,18,0.99));
+  border-radius:30px;margin:0 auto 3rem;
+  border:1px solid rgba(251,191,36,0.2);
+  animation:heroFade 0.7s 0.15s both, floatY 6.5s ease-in-out infinite 1.2s, glowPulse 4s ease-in-out infinite;
+  box-shadow:0 0 40px rgba(167,139,250,0.2),inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.h-logo .h-r1 { position:absolute;inset:-10px;border:2px solid rgba(251,191,36,0.3);border-radius:40px;animation:spin1 10s linear infinite; }
+.h-logo .h-r2 { position:absolute;inset:-20px;border:1.5px dashed rgba(167,139,250,0.2);border-radius:50px;animation:spin2 18s linear infinite; }
+.h-logo .h-r3 { position:absolute;inset:-30px;border:1px solid rgba(45,212,191,0.12);border-radius:60px;animation:spin1 26s linear infinite; }
+.h-logo .h-ico { font-family:'Material Symbols Outlined';font-size:52px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 48;position:relative;z-index:1;filter:drop-shadow(0 0 16px rgba(251,191,36,0.6)); }
+
+.h-title {
+  font-family:'Clash Display',sans-serif;
+  font-size: clamp(2.2rem, 4.8vw, 3.6rem);
+  font-weight:700;color:#fff;
+  line-height:1.1;letter-spacing:-1.5px;
+  margin-bottom:1.6rem;
+  animation:heroFade 0.7s 0.2s both;
+}
+.h-title .g1 {
+  background:linear-gradient(135deg,#FBBF24 0%,#FB923C 35%,#A78BFA 70%,#67E8F9 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  background-size:200%;
+  animation:gradSweep 4s ease infinite;
+}
+
+.h-sub {
+  font-size:clamp(1rem,2.2vw,1.2rem);color:var(--muted);
+  max-width:580px;line-height:1.68;margin:0 auto 2.8rem;
+  font-weight:400;animation:heroFade 0.7s 0.3s both;
+}
+
+.h-actions { display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;animation:heroFade 0.7s 0.4s both; }
+.btn-hero {
+  display:inline-flex;align-items:center;gap:0.55rem;
+  font-family:'Satoshi',sans-serif;font-size:15.5px;font-weight:700;
+  color:#06060A;background:linear-gradient(135deg,#FBBF24,#D97706);
+  border:none;border-radius:16px;padding:0.9rem 2.2rem;
+  cursor:pointer;text-decoration:none;
+  transition:all 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+  box-shadow:0 10px 36px -6px rgba(251,191,36,0.52);
+}
+.btn-hero:hover { transform:translateY(-3px) scale(1.04);box-shadow:0 18px 44px -6px rgba(251,191,36,0.68); }
+.btn-hero:active { transform:scale(0.97); }
+.btn-outline {
+  display:inline-flex;align-items:center;gap:0.55rem;
+  font-family:'Satoshi',sans-serif;font-size:15.5px;font-weight:600;
+  color:var(--text);
+  background:rgba(255,255,255,0.05);
+  border:1.5px solid rgba(255,255,255,0.14);
+  border-radius:16px;padding:0.9rem 2.2rem;
+  cursor:pointer;text-decoration:none;
+  transition:all 0.25s;backdrop-filter:blur(8px);
+}
+.btn-outline:hover { background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.28);transform:translateY(-2px); }
+
+/* Stats strip */
+.h-stats {
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(2rem,5vw,5rem);flex-wrap:wrap;
+  margin-top:5rem;padding-top:3rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  animation:heroFade 0.7s 0.55s both;
+}
+.stat-num {
+  font-family:'Clash Display',sans-serif;font-size:clamp(2rem,4vw,2.8rem);
+  font-weight:700;color:var(--gold);letter-spacing:-1px;line-height:1;display:block;
+}
+.stat-lbl { font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:0.09em;margin-top:0.3rem;font-family:'JetBrains Mono',monospace; }
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+.reveal {
+  opacity:0;transform:translateY(52px);
+  transition:opacity 1.4s cubic-bezier(0.22,1,0.36,1),transform 1.4s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity:1;transform:translateY(0); }
+.reveal.from-left  { transform:translateX(-70px) translateY(0); }
+.reveal.from-right { transform:translateX(70px) translateY(0); }
+.reveal.from-left.visible, .reveal.from-right.visible { transform:translateX(0); }
+.reveal.scale-in { transform:scale(0.86) translateY(24px); }
+.reveal.scale-in.visible { transform:scale(1) translateY(0); }
+/* Stagger delays — spacious so each element appears distinctly */
+.rd1{transition-delay:0.10s} .rd2{transition-delay:0.22s} .rd3{transition-delay:0.34s}
+.rd4{transition-delay:0.46s} .rd5{transition-delay:0.58s} .rd6{transition-delay:0.70s}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+section { position:relative;z-index:10;padding:clamp(4rem,10vw,9rem) clamp(1.25rem,6vw,5rem); }
+.section-divider { height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin:0 clamp(1.25rem,6vw,5rem);position:relative;z-index:10; }
+
+.eyebrow {
+  font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;
+  color:var(--gold);text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:0.85rem;display:flex;align-items:center;gap:0.6rem;
+}
+.eyebrow::before { content:'';display:block;width:22px;height:2px;background:var(--gold);border-radius:2px; }
+.eyebrow.center { justify-content:center; }
+.eyebrow.center::before { display:none; }
+.eyebrow.center::after { content:'';display:block;width:22px;height:2px;background:var(--gold);border-radius:2px; }
+
+.sec-title {
+  font-family:'Clash Display',sans-serif;font-size:clamp(1.9rem,4.5vw,3.2rem);
+  font-weight:700;color:#fff;line-height:1.12;letter-spacing:-0.8px;margin-bottom:1.1rem;
+}
+.sec-title .acc { color:var(--gold); }
+.sec-sub { font-size:clamp(0.95rem,2vw,1.08rem);color:var(--muted);line-height:1.68;max-width:540px; }
+
+/* =====================================================
+   MORPHISM CARD TYPES
+===================================================== */
+/* GLASSMORPHISM */
+.glass {
+  background:rgba(14,13,22,0.72);
+  backdrop-filter:blur(28px) saturate(140%);
+  -webkit-backdrop-filter:blur(28px) saturate(140%);
+  border:1.5px solid rgba(255,255,255,0.08);
+  border-radius:var(--r24);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:border-color 0.3s,box-shadow 0.3s,transform 0.35s;
+}
+.glass:hover {
+  border-color:rgba(251,191,36,0.3);
+  box-shadow:0 28px 70px rgba(0,0,0,0.5),0 0 40px rgba(251,191,36,0.07),inset 0 1px 0 rgba(255,255,255,0.1);
+  transform:translateY(-5px);
+}
+
+/* CLAYMORPHISM */
+.clay {
+  background:linear-gradient(145deg,rgba(20,18,34,0.9),rgba(12,10,24,0.94));
+  border:none;border-radius:28px;
+  box-shadow:
+    8px 8px 32px rgba(0,0,0,0.6),
+    -4px -4px 18px rgba(255,255,255,0.03),
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    inset 0 -1px 0 rgba(0,0,0,0.5);
+  transition:transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275),box-shadow 0.35s;
+}
+.clay:hover {
+  transform:translateY(-5px) scale(1.015);
+  box-shadow:
+    12px 16px 40px rgba(0,0,0,0.65),
+    -4px -4px 20px rgba(255,255,255,0.04),
+    inset 0 1px 0 rgba(255,255,255,0.09);
+}
+
+/* FROSTED NEUMORPHISM */
+.neumorphic {
+  background:rgba(14,12,24,0.88);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:
+    6px 6px 24px rgba(0,0,0,0.55),
+    -2px -2px 10px rgba(255,255,255,0.025),
+    inset 1px 1px 3px rgba(255,255,255,0.04);
+  transition:all 0.3s;
+}
+.neumorphic:hover {
+  box-shadow:
+    8px 8px 30px rgba(0,0,0,0.6),
+    -2px -2px 12px rgba(255,255,255,0.03),
+    inset 1px 1px 4px rgba(255,255,255,0.05),
+    0 0 30px rgba(251,191,36,0.06);
+}
+
+/* AURORA CARD (tinted edge glow) */
+.aurora-card {
+  background:rgba(12,10,22,0.85);
+  border-radius:26px;
+  position:relative;
+  overflow:hidden;
+}
+.aurora-card::before {
+  content:'';position:absolute;inset:0;
+  border-radius:inherit;
+  padding:1.5px;
+  background:linear-gradient(135deg,rgba(167,139,250,0.4),rgba(251,191,36,0.3),rgba(45,212,191,0.3),rgba(167,139,250,0.4));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  background-size:300%;
+  animation:gradSweep 5s ease infinite;
+}
+
+/* =====================================================
+   FEATURES GRID
+===================================================== */
+.feat-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.4rem;margin-top:3.5rem;
+}
+.feat-card { padding:2rem;position:relative;overflow:hidden; }
+.feat-card::after {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--line-c,rgba(251,191,36,0.5)),transparent);
+  transform:translateX(-100%);transition:transform 0.7s ease;
+}
+.feat-card:hover::after { transform:translateX(100%); }
+.fc-gold  { --line-c:rgba(251,191,36,0.6); }
+.fc-violet { --line-c:rgba(167,139,250,0.6); }
+.fc-cyan  { --line-c:rgba(103,232,249,0.6); }
+.fc-teal  { --line-c:rgba(45,212,191,0.6); }
+.fc-rose  { --line-c:rgba(251,113,133,0.6); }
+.fc-orange { --line-c:rgba(251,146,60,0.6); }
+
+.feat-icon {
+  width:52px;height:52px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem;
+}
+.feat-icon .mi { font-family:'Material Symbols Outlined';font-size:26px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
+.fi-g { background:rgba(251,191,36,0.1);box-shadow:0 0 20px rgba(251,191,36,0.12); }
+.fi-g .mi { color:var(--gold); }
+.fi-v { background:rgba(167,139,250,0.1);box-shadow:0 0 20px rgba(167,139,250,0.12); }
+.fi-v .mi { color:var(--violet); }
+.fi-c { background:rgba(103,232,249,0.1);box-shadow:0 0 20px rgba(103,232,249,0.12); }
+.fi-c .mi { color:var(--cyan); }
+.fi-t { background:rgba(45,212,191,0.1);box-shadow:0 0 20px rgba(45,212,191,0.12); }
+.fi-t .mi { color:var(--teal); }
+.fi-r { background:rgba(251,113,133,0.1);box-shadow:0 0 20px rgba(251,113,133,0.12); }
+.fi-r .mi { color:var(--rose); }
+.fi-o { background:rgba(251,146,60,0.1);box-shadow:0 0 20px rgba(251,146,60,0.12); }
+.fi-o .mi { color:var(--orange); }
+
+.feat-title { font-family:'Clash Display',sans-serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:0.6rem;letter-spacing:-0.3px; }
+.feat-desc { font-size:14px;color:var(--muted);line-height:1.65; }
+
+/* =====================================================
+   AI DEMO SECTION
+===================================================== */
+.xp-grid {
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+@media(max-width:900px){ .xp-grid{grid-template-columns:1fr;gap:3rem;} }
+
+.xp-visual { position:relative;aspect-ratio:4/3; }
+.xp-card {
+  width:100%;height:100%;border-radius:28px;overflow:hidden;
+  background:linear-gradient(145deg,rgba(14,12,24,0.96),rgba(8,7,18,0.98));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.xp-card::before {
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 25% 25%,rgba(167,139,250,0.1),transparent 60%),
+             radial-gradient(ellipse 60% 55% at 75% 75%,rgba(251,191,36,0.07),transparent 60%);
+}
+
+.mock-chat { width:85%;display:flex;flex-direction:column;gap:0.8rem;position:relative;z-index:1; }
+.cb {
+  max-width:82%;padding:0.8rem 1.05rem;border-radius:16px;
+  font-size:13px;line-height:1.55;
+}
+.cb.u { align-self:flex-end;background:linear-gradient(135deg,rgba(251,191,36,0.18),rgba(180,83,9,0.12));border:1px solid rgba(251,191,36,0.24);color:#f9f9f9; }
+.cb.a { align-self:flex-start;background:rgba(26,24,40,0.9);border:1px solid rgba(167,139,250,0.2);color:var(--muted); }
+.cb-sender { font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;color:var(--gold); }
+.cb.a .cb-sender { color:var(--violet); }
+
+@keyframes tdot { 0%,100%{transform:translateY(0);opacity:.5} 50%{transform:translateY(-5px);opacity:1} }
+.tdots { display:flex;gap:4px;padding:0.35rem 0; }
+.tdots span { width:7px;height:7px;background:var(--violet);border-radius:50%;animation:tdot 1.2s ease-in-out infinite; }
+.tdots span:nth-child(2){animation-delay:.2s} .tdots span:nth-child(3){animation-delay:.4s}
+
+.float-chip {
+  position:absolute;z-index:2;
+  background:rgba(12,11,22,0.92);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+  padding:0.6rem 1rem;font-size:12px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:0.45rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.45);
+}
+.float-chip .mi { font-family:'Material Symbols Outlined';font-size:15px; }
+.fc-top { top:-14px;right:6%;animation:floatY 4.5s ease-in-out infinite; }
+.fc-bot { bottom:-14px;left:4%;animation:floatY 5.5s ease-in-out infinite 1s; }
+
+/* Checklist inside XP */
+.xp-list { list-style:none;display:flex;flex-direction:column;gap:0.9rem;margin-top:2rem; }
+.xp-list li { display:flex;align-items:center;gap:0.75rem;font-size:14px;color:rgba(244,244,245,0.82); }
+.xp-list .chk { font-family:'Material Symbols Outlined';font-size:19px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24;flex-shrink:0; }
+
+/* =====================================================
+   DISH SCROLL SECTION — combine effect
+===================================================== */
+.dishes-section { overflow:hidden; padding:clamp(4rem,10vw,9rem) 0; }
+.dishes-section .eyebrow { padding:0 clamp(1.25rem,6vw,5rem); }
+.dishes-section .sec-title { padding:0 clamp(1.25rem,6vw,5rem); margin-bottom:0.4rem; }
+.dishes-section .sec-sub { padding:0 clamp(1.25rem,6vw,5rem); margin-bottom:3rem; }
+
+/* Responsive grid — wraps at any zoom level */
+.dish-stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  padding: 0.5rem clamp(1.25rem,6vw,5rem) 2rem;
+  /* no overflow-x, no scroll-snap — just wraps naturally */
+}
+
+/* Each dish card — starts scattered, combines on scroll */
+.dish-card {
+  width: 100%; /* fill grid cell */
+  min-width: 0; /* prevent grid blowout */
+  border-radius: 24px;
+  padding: 1.75rem 1.5rem;
+  position: relative; overflow: hidden;
+  cursor: default;
+  opacity: 0;
+  transition:
+    transform 1.2s cubic-bezier(0.22,1,0.36,1),
+    opacity 1.2s cubic-bezier(0.22,1,0.36,1),
+    box-shadow 0.4s;
+}
+
+.dc1 { background:linear-gradient(145deg,rgba(251,191,36,0.14),rgba(180,83,9,0.07));border:1.5px solid rgba(251,191,36,0.22);--dg:rgba(251,191,36,0.12); }
+.dc2 { background:linear-gradient(145deg,rgba(167,139,250,0.12),rgba(109,40,217,0.06));border:1.5px solid rgba(167,139,250,0.22);--dg:rgba(167,139,250,0.12); }
+.dc3 { background:linear-gradient(145deg,rgba(45,212,191,0.12),rgba(15,118,110,0.06));border:1.5px solid rgba(45,212,191,0.22);--dg:rgba(45,212,191,0.12); }
+.dc4 { background:linear-gradient(145deg,rgba(103,232,249,0.12),rgba(14,116,144,0.06));border:1.5px solid rgba(103,232,249,0.22);--dg:rgba(103,232,249,0.12); }
+.dc5 { background:linear-gradient(145deg,rgba(251,113,133,0.12),rgba(159,18,57,0.06));border:1.5px solid rgba(251,113,133,0.22);--dg:rgba(251,113,133,0.12); }
+.dc6 { background:linear-gradient(145deg,rgba(251,146,60,0.12),rgba(154,52,18,0.06));border:1.5px solid rgba(251,146,60,0.22);--dg:rgba(251,146,60,0.12); }
+
+/* Scatter start positions */
+.dish-card.from-tl { transform:translate(-100px,-70px) rotate(-10deg) scale(0.82); }
+.dish-card.from-tr { transform:translate(100px,-70px) rotate(10deg) scale(0.82); }
+.dish-card.from-bl { transform:translate(-100px,70px) rotate(8deg) scale(0.82); }
+.dish-card.from-br { transform:translate(100px,70px) rotate(-8deg) scale(0.82); }
+/* Combined (in-place) state */
+.dish-card.combined {
+  opacity:1 !important;
+  transform:translate(0,0) rotate(0deg) scale(1) !important;
+}
+.dish-card.combined:hover {
+  transform:translateY(-9px) scale(1.035) !important;
+  z-index:5;
+  box-shadow:0 28px 55px rgba(0,0,0,0.6),0 0 35px var(--dg) !important;
+}
+
+.dish-card:hover { box-shadow:0 24px 50px rgba(0,0,0,0.55),0 0 30px var(--dg); }
+
+.d-emoji { font-size:3rem;margin-bottom:1rem;display:block;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5)); }
+.d-name { font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:0.45rem;letter-spacing:-0.2px; }
+.d-desc { font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:1rem; }
+.d-price { font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:600;color:var(--gold); }
+.d-badge {
+  display:inline-block;font-size:9.5px;font-family:'JetBrains Mono',monospace;
+  padding:0.22rem 0.55rem;border-radius:6px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;margin-left:0.55rem;
+}
+.tag-gold { background:rgba(251,191,36,0.14);color:var(--gold); }
+.tag-violet { background:rgba(167,139,250,0.14);color:var(--violet); }
+.tag-teal { background:rgba(45,212,191,0.14);color:var(--teal); }
+.tag-rose { background:rgba(251,113,133,0.14);color:var(--rose); }
+.tag-cyan { background:rgba(103,232,249,0.14);color:var(--cyan); }
+.tag-orange { background:rgba(251,146,60,0.14);color:var(--orange); }
+
+/* =====================================================
+   PRICING
+===================================================== */
+.price-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;margin-top:3.5rem; }
+.price-card { border-radius:26px;padding:2rem 1.8rem;position:relative;overflow:hidden;transition:transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275),box-shadow 0.35s; }
+.price-card:hover { transform:translateY(-6px); }
+.price-card.featured-card::before {
+  content:'⭐ MOST LOVED';position:absolute;top:1.2rem;right:1.4rem;
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:600;letter-spacing:0.07em;
+  color:var(--gold);background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.24);
+  border-radius:6px;padding:0.25rem 0.6rem;
+}
+.price-tier { font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:0.65rem; }
+.price-val { font-family:'Clash Display',sans-serif;font-size:2.6rem;font-weight:700;color:#fff;line-height:1;margin-bottom:0.4rem;letter-spacing:-1px; }
+.price-val .curr { font-size:1.2rem;vertical-align:super;color:var(--gold); }
+.price-val .per { font-size:0.88rem;color:var(--muted);font-family:'Satoshi',sans-serif;font-weight:400;letter-spacing:0; }
+.price-desc { font-size:13px;color:var(--muted);margin-bottom:1.6rem;line-height:1.55; }
+.price-feats { list-style:none;display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.8rem; }
+.price-feats li { display:flex;align-items:flex-start;gap:0.6rem;font-size:13.5px;color:rgba(244,244,245,0.82);line-height:1.45; }
+.price-feats .chk { font-family:'Material Symbols Outlined';font-size:17px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24;flex-shrink:0;margin-top:1px; }
+.btn-book {
+  width:100%;padding:0.82rem;border-radius:13px;border:none;
+  font-family:'Satoshi',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;text-decoration:none;display:block;text-align:center;
+  transition:all 0.28s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.btn-book.solid { background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#06060A;box-shadow:0 8px 22px -4px rgba(251,191,36,0.42); }
+.btn-book.solid:hover { transform:translateY(-2px);box-shadow:0 12px 30px -4px rgba(251,191,36,0.62); }
+.btn-book.outline { background:transparent;color:var(--text);border:1.5px solid rgba(255,255,255,0.15); }
+.btn-book.outline:hover { background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.28); }
+
+/* =====================================================
+   TESTIMONIAL BELT
+===================================================== */
+@keyframes scrollLeft { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.testi-track { overflow:hidden;margin-top:3rem; }
+.testi-belt { display:flex;gap:1.5rem;animation:scrollLeft 32s linear infinite;flex-shrink:0;min-width:max-content; }
+.testi-belt:hover { animation-play-state:paused; }
+.testi-card { flex-shrink:0;width:280px;padding:1.5rem;border-radius:20px; }
+.t-stars { color:var(--gold);font-size:13px;margin-bottom:0.75rem;letter-spacing:2px; }
+.t-quote { font-size:13.5px;color:rgba(244,244,245,0.8);line-height:1.62;font-style:italic;margin-bottom:1rem; }
+.t-author { display:flex;align-items:center;gap:0.65rem; }
+.t-av { width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;font-family:'Clash Display',sans-serif; }
+.t-name { font-weight:700;font-size:13px;color:var(--text); }
+.t-role { font-size:11px;color:var(--muted); }
+
+/* =====================================================
+   LOCATION
+===================================================== */
+.loc-wrap {
+  border-radius:30px;padding:3rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2.5rem;flex-wrap:wrap;
+  background:linear-gradient(145deg,rgba(14,12,24,0.9),rgba(8,7,18,0.95));
+  position:relative;overflow:hidden;
+}
+.loc-wrap::before {
+  content:'';position:absolute;top:-50%;left:-20%;width:60%;height:200%;
+  background:radial-gradient(ellipse,rgba(251,191,36,0.06),transparent 65%);pointer-events:none;
+}
+.loc-title { font-family:'Clash Display',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:#fff;margin-bottom:0.8rem;letter-spacing:-0.5px; }
+.loc-body { color:var(--muted);font-size:14.5px;line-height:1.65;max-width:420px; }
+.loc-rows { display:flex;flex-direction:column;gap:0.9rem;margin-top:1.6rem; }
+.loc-row { display:flex;align-items:center;gap:0.65rem;font-size:13.5px;color:rgba(244,244,245,0.82); }
+.loc-row .mi { font-family:'Material Symbols Outlined';font-size:18px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
+.loc-map {
+  min-width:240px;height:200px;border-radius:20px;
+  background:rgba(16,14,26,0.82);border:1.5px solid rgba(251,191,36,0.18);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.6rem;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.loc-map::before { content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(45,212,191,0.08),transparent 70%); }
+.map-ico { font-family:'Material Symbols Outlined';font-size:44px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 48; }
+.map-txt { font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;text-align:center; }
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer {
+  position:relative;z-index:10;
+  background:rgba(4,4,8,0.9);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  border-top:1px solid rgba(255,255,255,0.05);
+  padding:3.5rem clamp(1.25rem,6vw,5rem) 2rem;
+}
+footer::before {
+  content:'';position:absolute;top:0;left:5%;right:5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(251,191,36,0.25),transparent);
+}
+.foot-top { display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem; }
+.foot-brand-name { font-family:'Clash Display',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:0.4rem; }
+.foot-tagline { font-size:13px;color:var(--muted);margin-bottom:1.3rem; }
+.foot-socials { display:flex;gap:0.6rem; }
+.soc-btn { width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Material Symbols Outlined';font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;cursor:pointer;transition:all 0.2s;text-decoration:none; }
+.soc-btn:hover { background:rgba(251,191,36,0.1);border-color:rgba(251,191,36,0.28);color:var(--gold); }
+.foot-col h4 { font-family:'Clash Display',sans-serif;font-size:13px;font-weight:700;color:var(--text);margin-bottom:1rem;letter-spacing:-0.2px; }
+.foot-col ul { list-style:none;display:flex;flex-direction:column;gap:0.55rem; }
+.foot-col a { font-size:13px;color:var(--muted);text-decoration:none;transition:color 0.2s;cursor:pointer; }
+.foot-col a:hover { color:var(--gold); }
+.foot-bottom { display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.05);font-size:12.5px;color:rgba(212,212,216,0.38); }
+.foot-bottom a { color:rgba(251,191,36,0.6);text-decoration:none; }
+.foot-bottom a:hover { color:var(--gold); }
+
+/* =====================================================
+   COMING SOON TOAST
+===================================================== */
+@keyframes csIn { from{opacity:0;transform:translateX(120px)} to{opacity:1;transform:translateX(0)} }
+@keyframes csOut { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(120px)} }
+.cs-toast {
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;
+  background:rgba(14,13,22,0.96);backdrop-filter:blur(24px);
+  border:1.5px solid rgba(251,191,36,0.3);border-radius:14px;
+  padding:1rem 1.3rem;display:flex;align-items:flex-start;gap:0.75rem;
+  box-shadow:0 16px 50px rgba(0,0,0,0.5);max-width:290px;
+  pointer-events:none;opacity:0;
+}
+.cs-toast.show { animation:csIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards;pointer-events:all; }
+.cs-toast.hide { animation:csOut 0.35s ease forwards; }
+.cs-ico { font-family:'Material Symbols Outlined';font-size:22px;color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;flex-shrink:0; }
+.cs-text h4 { font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:0.25rem; }
+.cs-text p { font-size:12px;color:var(--muted);line-height:1.45; }
+
+/* =====================================================
+   RESPONSIVE & MOBILE DRAWER SETUP
+===================================================== */
+.nav-toggle {
+  display: none;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: var(--primary);
+  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+  transition: all 0.2s;
+}
+.nav-toggle span { font-size: 24px; }
+.nav-toggle:hover { color: var(--gold); background: rgba(255,255,255,0.08); }
+
+.nav-drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 6, 10, 0.94);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  padding: 2rem;
+  transform: scale(0.96) translateY(-30px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s, backdrop-filter 0.6s;
+}
+.nav-drawer.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+.drawer-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  color: var(--muted);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.drawer-close span { font-size: 22px; }
+.drawer-close:hover { color: var(--gold); background: rgba(255,255,255,0.08); }
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3rem;
+  width: 100%;
+}
+.dl-btn {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s, color 0.2s;
+}
+.dl-btn:hover { color: var(--gold); transform: scale(1.04) !important; }
+
+/* Stagger entrance when drawer is open */
+.nav-drawer.open .dl-btn {
+  transform: translateY(0);
+  opacity: 1;
+}
+.nav-drawer.open .dl-btn:nth-child(1) { transition-delay: 0.12s; }
+.nav-drawer.open .dl-btn:nth-child(2) { transition-delay: 0.19s; }
+.nav-drawer.open .dl-btn:nth-child(3) { transition-delay: 0.26s; }
+.nav-drawer.open .dl-btn:nth-child(4) { transition-delay: 0.33s; }
+
+.drawer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 1rem;
+  transform: translateY(16px);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s;
+}
+.nav-drawer.open .drawer-actions {
+  transform: translateY(0);
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+@media(max-width:768px){
+  .nav-links { display:none !important; }
+  .nav-actions { display:none !important; }
+  .nav-toggle { display:flex !important; }
+  .nav { padding: 0 1.25rem; }
+  .brand-name { font-size: 15px; }
+  .brand-logo { width: 36px; height: 36px; }
+  .brand-logo .r1 { inset: -4px; }
+  .brand-logo .r2 { inset: -8px; }
+  
+  .btn-hero, .btn-outline { width: 100%; max-width: 280px; justify-content: center; }
+  .h-actions { flex-direction: column; gap: 0.75rem; width: 100%; align-items: center; }
+  main { padding-top: 66px; }
+  .hero { min-height: auto; padding: 3rem 1.25rem 5rem; }
+  .h-badge { font-size: 9.5px; margin-bottom: 2rem; padding: 0.35rem 0.85rem; text-align: center; }
+  
+  .h-logo { width: 84px; height: 84px; margin-bottom: 2.2rem; }
+  .h-logo .h-ico { font-size: 40px; }
+  .h-logo .h-r1 { inset: -8px; }
+  .h-logo .h-r2 { inset: -16px; }
+  .h-logo .h-r3 { inset: -24px; }
+  
+  .h-stats {
+    gap: 1rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    max-width: 420px;
+  }
+  .stat-num { font-size: 1.85rem; }
+  .stat-lbl { font-size: 10.5px; }
+  
+  .sec-title { font-size: 1.8rem !important; line-height: 1.2; text-align: center; }
+  .sec-sub { font-size: 13.5px !important; margin-bottom: 2rem !important; text-align: center; }
+  
+  .feat-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .feat-card { padding: 1.4rem 1.2rem; max-width: 360px !important; margin: 0 auto !important; }
+  
+  .xp-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .xp-list { gap: 0.75rem; }
+  .xp-list li { font-size: 13px; }
+  .xp-visual { aspect-ratio: auto; min-height: 320px; }
+  .float-chip { font-size: 10.5px; padding: 0.45rem 0.85rem; }
+  .fc-top { top: -8px; right: 2%; }
+  .fc-bot { bottom: -8px; left: 2%; }
+  
+  .dishes-section { padding: 4rem 0; }
+  /* Elegant Horizontal Dish swiping stage instead of giant stretched vertical stacks */
+  .dish-stage {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    gap: 1rem !important;
+    padding: 0.5rem 1.25rem 2rem !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dish-stage::-webkit-scrollbar {
+    height: 3px;
+  }
+  .dish-stage::-webkit-scrollbar-thumb {
+    background: rgba(251,191,36,0.25);
+    border-radius: 2px;
+  }
+  .dish-card {
+    flex: 0 0 250px !important;
+    scroll-snap-align: start !important;
+    padding: 1.5rem 1.25rem !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: box-shadow 0.3s;
+  }
+  .dish-card.combined {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .dish-card.combined:hover {
+    transform: translateY(-4px) !important;
+  }
+  
+  .price-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+  .price-card { padding: 1.6rem 1.3rem; max-width: 360px !important; margin: 0 auto !important; }
+  
+  .testi-card { width: 250px; padding: 1.25rem; }
+  .loc-wrap { flex-direction: column; padding: 2rem 1.25rem; gap: 1.8rem; }
+  .loc-map { width: 100%; min-width: auto; height: 180px; }
+  
+  .foot-top { flex-direction: column; gap: 1.8rem; }
+  footer { padding: 2.5rem 1.25rem 1.5rem; }
+  .foot-bottom { flex-direction: column; text-align: center; gap: 0.6rem; font-size: 11.5px; }
+}
+
+
+/* ── HOLOGRAPHIC SHIMMER on aurora-cards */
+@keyframes holoShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.aurora-card::after {
+  content:'';position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(105deg,
+    transparent 20%,
+    rgba(255,255,255,0.04) 30%,
+    rgba(167,139,250,0.06) 40%,
+    rgba(103,232,249,0.07) 50%,
+    rgba(255,255,255,0.04) 60%,
+    transparent 70%
+  );
+  background-size:200% 100%;
+  animation:holoShimmer 4s linear infinite;
+  pointer-events:none;
+}
+
+/* ── LIQUID GLOW PULSE on CTA buttons */
+@keyframes glowRipple {
+  0%   { box-shadow: 0 10px 36px -6px rgba(251,191,36,0.52), 0 0 0 0 rgba(251,191,36,0.4); }
+  70%  { box-shadow: 0 10px 36px -6px rgba(251,191,36,0.52), 0 0 0 14px rgba(251,191,36,0); }
+  100% { box-shadow: 0 10px 36px -6px rgba(251,191,36,0.52), 0 0 0 0 rgba(251,191,36,0); }
+}
+.btn-hero { animation: glowRipple 2.8s ease-out infinite; }
+
+/* ── GLASS card 3D tilt wrapper */
+.tilt-card { transform-style: preserve-3d; will-change: transform; }
+
+/* ── FLOATING ORB (cursor follower) */
+/* cursor orb removed */
+
+/* ── MAGNETIC button hover glow ring */
+.btn-hero::before, .btn-outline::before {
+  content:'';position:absolute;inset:-3px;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(251,191,36,0.5),rgba(167,139,250,0.3),rgba(103,232,249,0.3));
+  opacity:0;transition:opacity 0.35s;z-index:-1;filter:blur(8px);
+}
+.btn-hero { position:relative; }
+.btn-outline { position:relative; }
+.btn-hero:hover::before, .btn-outline:hover::before { opacity:1; }
+
+/* ── SCROLL PROGRESS BAR */
+#scrollBar {
+  position:fixed;top:0;left:0;height:2.5px;z-index:500;
+  background:linear-gradient(90deg,#FBBF24,#A78BFA,#67E8F9);
+  width:0%;transition:width 0.1s linear;
+  box-shadow:0 0 10px rgba(251,191,36,0.6);
+}
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-wrap">
+  <div class="bg-gradient"></div>
+  <div class="aurora au1"></div>
+  <div class="aurora au2"></div>
+  <div class="aurora au3"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="blob b5"></div>
+  <div class="noise"></div>
+</div>
+<div class="ptc-layer" id="ptcLayer"></div>
+<div id="scrollBar"></div>
+
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <a class="brand" href="/">
+    <div class="brand-logo">
+      <div class="r1"></div>
+      <div class="r2"></div>
+      <span class="ico">restaurant</span>
+    </div>
+    <span class="brand-name">Kolachi <em>Restaurant</em></span>
+  </a>
+
+  <div class="nav-links">
+    <button class="nl" onclick="scrollTo('#features')">Features</button>
+    <button class="nl" onclick="scrollTo('#dishes')">Menu</button>
+    <button class="nl" onclick="scrollTo('#pricing')">Packages</button>
+    <button class="nl" onclick="scrollTo('#location')">Location</button>
+  </div>
+
+  <div class="nav-actions">
+    <a class="btn-ghost" href="/login">Sign In</a>
+    <a class="btn-gold" href="/signup">
+      <span class="material-symbols-outlined" style="font-size:15px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">table_restaurant</span>
+      Reserve Table
+    </a>
+  </div>
+
+  <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <button class="drawer-close" onclick="toggleMobileNav()">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  
+  <div class="drawer-logo">
+    <span class="material-symbols-outlined" style="color:var(--gold);font-size:30px">restaurant</span>
+    <span class="brand-name" style="font-size:20px;font-weight:700;color:#fff">Kolachi <em style="color:var(--gold);font-style:normal">Restaurant</em></span>
+  </div>
+  
+  <div class="drawer-links">
+    <button class="dl-btn" onclick="scrollToDrawer('#features')">Features</button>
+    <button class="dl-btn" onclick="scrollToDrawer('#dishes')">Menu</button>
+    <button class="dl-btn" onclick="scrollToDrawer('#pricing')">Packages</button>
+    <button class="dl-btn" onclick="scrollToDrawer('#location')">Location</button>
+  </div>
+  
+  <div class="drawer-actions">
+    <a class="btn-ghost" href="/login" style="width:100%;text-align:center">Sign In</a>
+    <a class="btn-gold" href="/signup" style="width:100%;justify-content:center">
+      <span class="material-symbols-outlined" style="font-size:15px">table_restaurant</span>
+      Reserve Table
+    </a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+
+    <div class="h-badge">
+      <span class="h-badge-dot"></span>
+      Now Open · Clifton Beach, Karachi · Est. 1999
+    </div>
+
+    <div class="h-logo">
+      <div class="h-r1"></div>
+      <div class="h-r2"></div>
+      <div class="h-r3"></div>
+      <span class="h-ico">restaurant</span>
+    </div>
+
+    <h1 class="h-title">
+      Where the<br/><span class="g1">Sea Meets</span><br/>the Plate
+    </h1>
+
+    <p class="h-sub">
+      Karachi's most iconic Clifton Beach fine dining experience. Savor the ocean breeze, indulge in world-class Pakistani cuisine, and let our AI guest relations handle every detail.
+    </p>
+
+    <div class="h-actions">
+      <a class="btn-hero" href="/signup">
+        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">chat</span>
+        Chat with AI Host
+      </a>
+      <button class="btn-outline" onclick="scrollTo('#dishes')">
+        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">menu_book</span>
+        View Menu
+      </button>
+    </div>
+
+    <div class="h-stats">
+      <div style="text-align:center">
+        <span class="stat-num" data-count="25" data-suffix="+">0+</span>
+        <div class="stat-lbl">Years Established</div>
+      </div>
+      <div style="text-align:center">
+        <span class="stat-num" data-count="500" data-suffix="+">0+</span>
+        <div class="stat-lbl">Menu Items</div>
+      </div>
+      <div style="text-align:center">
+        <span class="stat-num" data-count="98" data-suffix="%">0%</span>
+        <div class="stat-lbl">Guest Satisfaction</div>
+      </div>
+      <div style="text-align:center">
+        <span class="stat-num" data-count="300" data-suffix="+">0+</span>
+        <div class="stat-lbl">Deck Seats</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── FEATURES ── -->
+  <section id="features">
+    <div class="reveal">
+      <div class="eyebrow">Why Kolachi</div>
+      <h2 class="sec-title">The <span class="acc">Finest</span> Dining on the Arabian Sea</h2>
+      <p class="sec-sub">From panoramic sea-view decks to AI-powered guest relations, every detail is crafted for an unforgettable experience.</p>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card glass fc-gold reveal rd1">
+        <div class="feat-icon fi-g"><span class="mi">restaurant</span></div>
+        <div class="feat-title">Clifton Seaside Deck</div>
+        <p class="feat-desc">Reserve your spot on our iconic wooden deck over the Arabian Sea. Sunset dining like nowhere else in Karachi.</p>
+      </div>
+      <div class="feat-card aurora-card fc-violet reveal rd2">
+        <div class="feat-icon fi-v"><span class="mi">smart_toy</span></div>
+        <div class="feat-title">AI Guest Relations</div>
+        <p class="feat-desc">Our 24/7 intelligent dining assistant handles reservations, menu guidance, dietary needs, and exclusive packages.</p>
+      </div>
+      <div class="feat-card clay fc-cyan reveal rd3">
+        <div class="feat-icon fi-c"><span class="mi">menu_book</span></div>
+        <div class="feat-title">500+ Curated Dishes</div>
+        <p class="feat-desc">From freshly caught seafood to traditional Karachi BBQ grills, each plate crafted with premium coastal ingredients.</p>
+      </div>
+      <div class="feat-card neumorphic fc-teal reveal rd4">
+        <div class="feat-icon fi-t"><span class="mi">event_seat</span></div>
+        <div class="feat-title">Private Event Spaces</div>
+        <p class="feat-desc">Exclusive banqueting halls, beachfront corporate gatherings, and intimate seaside family dining packages.</p>
+      </div>
+      <div class="feat-card glass fc-rose reveal rd5">
+        <div class="feat-icon fi-r"><span class="mi">local_bar</span></div>
+        <div class="feat-title">Signature Mocktails</div>
+        <p class="feat-desc">Kolachi's house-crafted non-alcoholic beverages inspired by Karachi's coastal culture — the perfect companion.</p>
+      </div>
+      <div class="feat-card aurora-card fc-orange reveal rd6">
+        <div class="feat-icon fi-o"><span class="mi">star</span></div>
+        <div class="feat-title">Award-Winning Legacy</div>
+        <p class="feat-desc">Over 25 years of culinary excellence, consistently recognized as Karachi's premier fine dining destination.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── AI DEMO ── -->
+  <section id="experience">
+    <div class="xp-grid">
+      <div class="reveal from-left">
+        <div class="eyebrow">AI Dining Companion</div>
+        <h2 class="sec-title">Your Personal <span class="acc">Digital Host</span></h2>
+        <p class="sec-sub">Get instant answers about our menu, make reservations, ask about fresh catch of the day, or get pairing suggestions — all through seamless conversation.</p>
+        <ul class="xp-list">
+          <li><span class="chk material-symbols-outlined">check_circle</span>Reserve a seaside table in seconds</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Personalized menu recommendations</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Dietary &amp; allergen info on demand</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Special occasion planning &amp; surprises</li>
+        </ul>
+        <a class="btn-hero" href="/signup" style="display:inline-flex;margin-top:2.25rem;">
+          <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">arrow_forward</span>
+          Try the AI Host
+        </a>
+      </div>
+
+      <div class="xp-visual reveal from-right rd2">
+        <div class="xp-card aurora-card">
+          <div class="mock-chat">
+            <div class="cb u">
+              <div class="cb-sender">You</div>
+              Can I get a seaside deck table for 4 tonight at 7pm?
+            </div>
+            <div class="cb a">
+              <div class="cb-sender">Kolachi AI Host</div>
+              Of course! I've checked availability — a prime ocean-view deck table for 4 is ready at 7:00 PM tonight. Shall I reserve it under your name?
+            </div>
+            <div class="cb u">
+              <div class="cb-sender">You</div>
+              Yes! Also what's the fresh catch today?
+            </div>
+            <div class="cb a">
+              <div class="cb-sender">Kolachi AI Host</div>
+              Today's fresh catch: <strong style="color:#FBBF24;">King Fish (Surmai)</strong> &amp; <strong style="color:#67E8F9;">Pomfret</strong>, in from Karachi harbor this morning 🐟
+              <div class="tdots" style="margin-top:8px;"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="float-chip fc-top">
+          <span class="mi material-symbols-outlined" style="color:var(--gold);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">verified</span>
+          AI-Powered · Always On
+        </div>
+        <div class="float-chip fc-bot">
+          <span class="mi material-symbols-outlined" style="color:var(--teal);font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">schedule</span>
+          24/7 Instant Replies
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── DISH SCROLL (COMBINE ANIMATION) ── -->
+  <section class="dishes-section" id="dishes">
+    <div class="eyebrow reveal" style="padding:0 clamp(1.25rem,6vw,5rem)">Menu Highlights</div>
+    <h2 class="sec-title reveal" style="padding:0 clamp(1.25rem,6vw,5rem)">Clifton's <span class="acc">Finest</span> On Your Plate</h2>
+    <p class="sec-sub reveal" style="padding:0 clamp(1.25rem,6vw,5rem);margin-bottom:3rem">From ocean-to-table freshness to royal BBQ grills — every bite is a journey through Karachi's coastal soul.</p>
+
+    <div class="dish-stage" id="dishStage">
+      <div class="dish-card dc1 from-tl clay">
+        <span class="d-emoji">🦐</span>
+        <div class="d-name">Butter Garlic Prawns<span class="d-badge tag-gold">Chef's Pick</span></div>
+        <p class="d-desc">Jumbo Arabian Sea prawns sautéed in house butter, garlic, and coastal herbs. Served sizzling on iron.</p>
+        <div class="d-price">PKR 2,800</div>
+      </div>
+      <div class="dish-card dc2 from-tr glass">
+        <span class="d-emoji">🐟</span>
+        <div class="d-name">Grilled Pomfret<span class="d-badge tag-violet">Seasonal</span></div>
+        <p class="d-desc">Whole Karachi Pomfret marinated in house spice blend, grilled over open charcoal with lemon herb butter.</p>
+        <div class="d-price">PKR 3,500</div>
+      </div>
+      <div class="dish-card dc3 from-bl aurora-card">
+        <span class="d-emoji">🥩</span>
+        <div class="d-name">Clifton BBQ Platter<span class="d-badge tag-teal">Popular</span></div>
+        <p class="d-desc">Seekh kebabs, boti tikka, chicken malai boti, and chapli kebabs — the pride of Kolachi's grill.</p>
+        <div class="d-price">PKR 5,200</div>
+      </div>
+      <div class="dish-card dc4 from-br neumorphic">
+        <span class="d-emoji">🍛</span>
+        <div class="d-name">Prawn Biryani<span class="d-badge tag-cyan">New</span></div>
+        <p class="d-desc">Aromatic basmati layered with fresh Arabian Sea prawns and slow-cooked saffron masala.</p>
+        <div class="d-price">PKR 1,900</div>
+      </div>
+      <div class="dish-card dc5 from-tl clay">
+        <span class="d-emoji">🦑</span>
+        <div class="d-name">Calamari Rings<span class="d-badge tag-rose">Favourite</span></div>
+        <p class="d-desc">Tender squid rings in a crispy coastal spice crust, served with Kolachi's signature dipping sauce.</p>
+        <div class="d-price">PKR 1,600</div>
+      </div>
+      <div class="dish-card dc6 from-tr glass">
+        <span class="d-emoji">🍢</span>
+        <div class="d-name">Seekh Karahi<span class="d-badge tag-orange">Classic</span></div>
+        <p class="d-desc">Minced meat hand-rolled onto skewers, cooked in a rich tomato karahi masala with fresh green chillies.</p>
+        <div class="d-price">PKR 2,200</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:0 clamp(1.25rem,6vw,5rem);margin-top:2.5rem;" class="reveal">
+      <a class="btn-outline" href="/signup" style="display:inline-flex;">
+        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">menu_book</span>
+        Explore Full Menu via AI
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── PRICING ── -->
+  <section id="pricing">
+    <div class="reveal" style="text-align:center">
+      <div class="eyebrow center">Dining Packages</div>
+      <h2 class="sec-title" style="text-align:center">Every <span class="acc">Occasion</span>, Perfectly Set</h2>
+      <p class="sec-sub" style="margin:0 auto">Choose an experience — from intimate seaside tables to grand banquet events.</p>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card glass reveal rd1">
+        <div class="price-tier">Casual Dining</div>
+        <div class="price-val"><span class="curr">PKR</span> 1,500 <span class="per">/person</span></div>
+        <p class="price-desc">Perfect for families and friends. Standard seaside seating with full à la carte access.</p>
+        <ul class="price-feats">
+          <li><span class="chk material-symbols-outlined">check_circle</span>À la carte dining</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Seaside seating (shared deck)</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>AI host assistance</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Complimentary welcome drink</li>
+        </ul>
+        <a href="/signup" class="btn-book outline">Book a Table</a>
+      </div>
+
+      <div class="price-card aurora-card featured-card reveal rd2">
+        <div class="price-tier">Premium Deck</div>
+        <div class="price-val"><span class="curr">PKR</span> 3,500 <span class="per">/person</span></div>
+        <p class="price-desc">Prime deck placement with curated 5-course tasting menu and dedicated waiter service.</p>
+        <ul class="price-feats">
+          <li><span class="chk material-symbols-outlined">check_circle</span>5-course tasting menu</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Prime ocean-view deck table</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Dedicated waiter service</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Seasonal special dishes</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Dessert platter included</li>
+        </ul>
+        <a href="/signup" class="btn-book solid">Reserve Now</a>
+      </div>
+
+      <div class="price-card clay reveal rd3">
+        <div class="price-tier">Corporate / Event</div>
+        <div class="price-val"><span class="curr">PKR</span> 8,000 <span class="per">/person</span></div>
+        <p class="price-desc">Exclusive banquet hall, custom menus, branding setups, and dedicated event planning support.</p>
+        <ul class="price-feats">
+          <li><span class="chk material-symbols-outlined">check_circle</span>Exclusive hall booking</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Custom menu curation</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Stage &amp; décor setup</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Audio-visual setup</li>
+          <li><span class="chk material-symbols-outlined">check_circle</span>Dedicated event coordinator</li>
+        </ul>
+        <a href="/signup" class="btn-book outline">Contact Events Team</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="reviews" style="overflow:hidden">
+    <div class="reveal" style="text-align:center">
+      <div class="eyebrow center">Guest Reviews</div>
+      <h2 class="sec-title" style="text-align:center">Loved by <span class="acc">Karachi</span></h2>
+    </div>
+    <div class="testi-track">
+      <div class="testi-belt" id="testiBelt"></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ── LOCATION ── -->
+  <section id="location">
+    <div class="loc-wrap aurora-card reveal">
+      <div class="loc-info">
+        <h2 class="loc-title">Find Us on Clifton Beach</h2>
+        <p class="loc-body">Nestled at the heart of Karachi's vibrant coastline, Kolachi Restaurant has been the city's landmark dining destination since 1999. Come for the food, stay for the sea.</p>
+        <div class="loc-rows">
+          <div class="loc-row"><span class="mi material-symbols-outlined">location_on</span>Do Darya, Phase 8 Defence, Clifton Beach, Karachi</div>
+          <div class="loc-row"><span class="mi material-symbols-outlined">schedule</span>Open Daily · 12:00 PM – 12:00 AM</div>
+          <div class="loc-row"><span class="mi material-symbols-outlined">phone</span>+92 21 5863661</div>
+        </div>
+        <a class="btn-hero" href="/signup" style="display:inline-flex;margin-top:2rem;">
+          <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;">table_restaurant</span>
+          Reserve Your Table
+        </a>
+      </div>
+      <div class="loc-map">
+        <span class="map-ico material-symbols-outlined">location_on</span>
+        <div class="map-txt">Do Darya · Clifton Beach<br/>Karachi, Pakistan</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand-name">Kolachi Restaurant</div>
+      <div class="foot-tagline">Where Karachi Meets the Sea — Est. 1999</div>
+      <div class="foot-socials">
+        <a class="soc-btn" href="#" onclick="showCS();return false" title="Facebook">facebook</a>
+        <a class="soc-btn" href="#" onclick="showCS();return false" title="Instagram">photo_camera</a>
+        <a class="soc-btn" href="#" onclick="showCS();return false" title="Twitter/X">tag</a>
+        <a class="soc-btn" href="#" onclick="showCS();return false" title="YouTube">play_circle</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Experience</h4>
+      <ul>
+        <li><a onclick="scrollTo('#dishes')">Our Menu</a></li>
+        <li><a onclick="scrollTo('#pricing')">Dining Packages</a></li>
+        <li><a onclick="scrollTo('#experience')">AI Host</a></li>
+        <li><a onclick="scrollTo('#location')">Reservations</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Account</h4>
+      <ul>
+        <li><a href="/login">Sign In</a></li>
+        <li><a href="/signup">Create Account</a></li>
+        <li><a href="/forgot-password">Reset Password</a></li>
+        <li><a href="/chat">Start Chatting</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="#" onclick="showCS();return false">Cookie Policy</a></li>
+        <li><a href="#" onclick="showCS();return false">Accessibility</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Kolachi Restaurant Group · Clifton Beach, Karachi · All rights reserved.</span>
+    <span>Designed with <span style="color:var(--gold)">♥</span> for the sea · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></span>
+  </div>
+</footer>
+
+<!-- COMING SOON TOAST -->
+<div class="cs-toast" id="csToast">
+  <span class="cs-ico material-symbols-outlined">rocket_launch</span>
+  <div class="cs-text">
+    <h4>Coming Soon!</h4>
+    <p>This feature is launching very soon. Stay tuned!</p>
+  </div>
+</div>
+
+<script>
+// ── Particles
+(function(){
+  const layer = document.getElementById('ptcLayer');
+  const colors = [
+    'rgba(167,139,250,0.65)','rgba(103,232,249,0.55)',
+    'rgba(251,191,36,0.45)','rgba(45,212,191,0.5)','rgba(251,113,133,0.4)'
+  ];
+  for(let i=0;i<50;i++){
+    const p = document.createElement('div');
+    p.className = 'ptc';
+    const sz = Math.random()*2.8+0.7;
+    const col = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;background:${col};opacity:${Math.random()*.5+.1};animation:ptcRise ${Math.random()*15+8}s linear infinite;animation-delay:-${Math.random()*22}s`;
+    layer.appendChild(p);
+  }
+})();
+
+// ── Counter animation
+function animCounter(el){
+  const target = parseInt(el.dataset.count);
+  const suffix = el.dataset.suffix||'';
+  const dur = 1900;
+  const start = performance.now();
+  const tick = t => {
+    const prog = Math.min((t-start)/dur,1);
+    const eased = 1-Math.pow(1-prog,4);
+    el.textContent = Math.floor(eased*target)+suffix;
+    if(prog<1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// ── Scroll reveal observer
+const revEls = document.querySelectorAll('.reveal');
+const ctrEls = document.querySelectorAll('[data-count]');
+let ctrDone = false;
+
+// Bidirectional: add 'visible' when scrolling DOWN into view, remove when scrolling BACK UP
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    } else {
+      // Only un-reveal if element is ABOVE viewport (user scrolled back up)
+      if (e.boundingClientRect.top > 0) {
+        e.target.classList.remove('visible');
+      }
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+revEls.forEach(el => revObs.observe(el));
+
+const ctrObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !ctrDone){
+      ctrDone = true;
+      ctrEls.forEach(animCounter);
+    }
+  });
+}, { threshold: 0.25 });
+ctrEls.forEach(el => ctrObs.observe(el));
+
+
+// ── BFCache restore: when Back is pressed, page reappears instantly at full opacity
+window.addEventListener('pageshow', () => {
+  document.body.style.transition = 'opacity 0.25s ease';
+  document.body.style.opacity = '1';
+});
+
+// ── DISH COMBINE ON SCROLL (card-by-card as they enter viewport)
+const dishStage = document.getElementById('dishStage');
+const dishCards = dishStage ? Array.from(dishStage.querySelectorAll('.dish-card')) : [];
+
+// Bidirectional dish combine — scatter back when scrolling UP past the section
+const dishCardObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const idx = dishCards.indexOf(e.target);
+    if (e.isIntersecting) {
+      // Combine with per-card stagger (slower: 130ms apart)
+      setTimeout(() => e.target.classList.add('combined'), idx * 130);
+    } else {
+      // Only scatter back if card is ABOVE the viewport (scrolling up)
+      if (e.boundingClientRect.top > 0) {
+        e.target.classList.remove('combined');
+      }
+    }
+  });
+}, { threshold: 0.14, rootMargin: '0px 0px -50px 0px' });
+
+dishCards.forEach(card => dishCardObs.observe(card));
+
+// ── Mouse parallax on blobs (smooth)
+let mxT=0, myT=0, mxC=0, myC=0;
+document.addEventListener('mousemove', e => {
+  mxT = (e.clientX/window.innerWidth - 0.5)*2;
+  myT = (e.clientY/window.innerHeight - 0.5)*2;
+});
+(function animBlobs(){
+  mxC += (mxT-mxC)*0.06;
+  myC += (myT-myC)*0.06;
+  document.querySelectorAll('.blob').forEach((b,i) => {
+    const f = [22,16,10,18,14][i]||12;
+    const s = i%2===0?1:-1;
+    b.style.transform = `translate(${mxC*f*s}px,${myC*f*s}px)`;
+  });
+  requestAnimationFrame(animBlobs);
+})();
+
+// ── Smooth nav scroll
+function scrollTo(sel){
+  const el = document.querySelector(sel);
+  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ── Mobile drawer toggles
+function toggleMobileNav() {
+  const drawer = document.getElementById('navDrawer');
+  if(!drawer) return;
+  drawer.classList.toggle('open');
+  if (drawer.classList.contains('open')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+}
+window.toggleMobileNav = toggleMobileNav;
+
+function scrollToDrawer(sel) {
+  toggleMobileNav();
+  setTimeout(() => {
+    scrollTo(sel);
+  }, 380);
+}
+window.scrollToDrawer = scrollToDrawer;
+
+// ── Page transition for real hrefs
+document.addEventListener('click', function(e){
+  const a = e.target.closest('a[href]');
+  if(!a) return;
+  const h = a.getAttribute('href');
+  if(!h||h==='#'||h.startsWith('#')||h.startsWith('http')||h.startsWith('mailto')||e.defaultPrevented) return;
+  e.preventDefault();
+  document.body.style.transition='opacity 0.35s ease';
+  document.body.style.opacity='0';
+  setTimeout(()=>window.location.href=h, 360);
+});
+
+// ── Testimonials belt
+const tData = [
+  {n:'Hira S.',r:'Food Blogger',q:"Kolachi is Karachi's best seaside dining. The prawns and sunset view together? Absolutely magical."},
+  {n:'Ahmed K.',r:'Regular Guest',q:"We've celebrated three anniversaries here. The deck tables at night with the sea breeze are unmatched."},
+  {n:'Zara M.',r:'Corporate Events',q:"Arranged our company's annual dinner here. The event team was flawless, the food extraordinary."},
+  {n:'Bilal T.',r:'First-time Visitor',q:"The AI chat host helped me plan my entire evening in minutes. Never seen a restaurant do this!"},
+  {n:'Sana R.',r:'Food Critic',q:"The Grilled Pomfret at Kolachi remains the benchmark for seafood in Karachi. Consistently excellent."},
+  {n:'Usman F.',r:'Family Guest',q:"Brought my family of 12. Every single person left happy. That's the magic of Kolachi!"},
+];
+const belt = document.getElementById('testiBelt');
+const avColors = ['linear-gradient(135deg,#a78bfa,#fbbf24)','linear-gradient(135deg,#67e8f9,#a78bfa)','linear-gradient(135deg,#fbbf24,#fb923c)','linear-gradient(135deg,#2dd4bf,#67e8f9)','linear-gradient(135deg,#fb7185,#a78bfa)','linear-gradient(135deg,#fb923c,#fbbf24)'];
+const allTesti = [...tData,...tData].map((t,i)=>`
+  <div class="testi-card glass">
+    <div class="t-stars">★★★★★</div>
+    <p class="t-quote">"${t.q}"</p>
+    <div class="t-author">
+      <div class="t-av" style="background:${avColors[i%avColors.length]}">${t.n[0]}</div>
+      <div><div class="t-name">${t.n}</div><div class="t-role">${t.r}</div></div>
+    </div>
+  </div>
+`).join('');
+belt.innerHTML = allTesti;
+
+// ── Coming soon toast
+let csTimer;
+function showCS(){
+  const t = document.getElementById('csToast');
+  t.classList.remove('hide');
+  t.classList.add('show');
+  clearTimeout(csTimer);
+  csTimer = setTimeout(()=>{
+    t.classList.remove('show');
+    t.classList.add('hide');
+  }, 3200);
+}
+window.showCS = showCS;
+
+// ══════════════════════════════════════════════
+// PREMIUM ANIMATION SYSTEMS
+// ══════════════════════════════════════════════
+
+// ── 1. SCROLL PROGRESS BAR
+const scrollBarEl = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  if (!scrollBarEl) return;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = (document.documentElement.scrollTop / max) * 100;
+  scrollBarEl.style.width = pct + '%';
+}, { passive: true });
+
+// Cursor orb removed — using native cursor
+
+// ── 3. 3D CARD TILT (perspective glass-morphism depth effect)
+const tiltEls = document.querySelectorAll('.feat-card, .price-card, .glass, .clay, .aurora-card');
+const TILT_MAX = 12; // degrees
+
+tiltEls.forEach(card => {
+  card.style.transition = 'transform 0.15s ease, box-shadow 0.3s';
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const dx = (e.clientX - cx) / (r.width / 2);
+    const dy = (e.clientY - cy) / (r.height / 2);
+    const rotX = -dy * TILT_MAX;
+    const rotY = dx * TILT_MAX;
+    card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.025) translateZ(10px)`;
+    // Dynamic shine
+    const shine = `radial-gradient(circle at ${((dx+1)/2*100).toFixed(0)}% ${((dy+1)/2*100).toFixed(0)}%, rgba(255,255,255,0.08) 0%, transparent 65%)`;
+    card.style.backgroundImage = card.style.backgroundImage
+      ? card.style.backgroundImage
+      : '';
+    card.dataset.origBg = card.dataset.origBg || '';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0)';
+  });
+});
+
+// ── 4. MAGNETIC BUTTONS (pull toward cursor within 80px radius)
+const magnetBtns = document.querySelectorAll('.btn-hero, .btn-outline');
+magnetBtns.forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const dx = (e.clientX - cx) * 0.28;
+    const dy = (e.clientY - cy) * 0.28;
+    btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.04)`;
+    btn.style.transition = 'transform 0.18s cubic-bezier(0.25,0.46,0.45,0.94)';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0,0) scale(1)';
+    btn.style.transition = 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+  });
+});
+</script>
+
+</body>
+</html>

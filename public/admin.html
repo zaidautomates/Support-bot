@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kolachi Restaurant HQ | Mission Control</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #07070B;
+    --surface: #100F15;
+    --surface-low: #0C0B0E;
+    --card: rgba(20, 19, 27, 0.72);
+    --border: rgba(245, 158, 11, 0.16);
+    --primary: #FBBF24;
+    --primary-dim: #F59E0B;
+    --primary-dark: #B45309;
+    --tertiary: #FDA4AF;
+    --secondary: #FB7185;
+    --text: #F4F4F5;
+    --muted: rgba(212, 212, 216, 0.65);
+    --sidebar-w: 280px;
+    --mint: #34d399;
+    --amber: #fbbf24;
+    --glow: rgba(245, 158, 11, 0.28);
+  }
+
+  @keyframes ncGradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  html, body { height: 100%; overflow: hidden; background: #07070B; }
+  body {
+    font-family: 'Satoshi', sans-serif;
+    color: var(--text);
+    display: flex;
+    background: linear-gradient(-45deg, #07070B, #0F0E17, #170F25, #07070B);
+    background-size: 400% 400%;
+    animation: ncGradientFlow 12s ease infinite;
+  }
+
+  /* Icons */
+  .mi { font-family: 'Material Symbols Outlined'; font-style: normal; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; line-height: 1; }
+  .mi-fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  /* Background elements */
+  @keyframes morphBlob { 0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%} 34%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%} 67%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%} }
+  .blob-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; filter: blur(12px) !important; opacity: 0.20; animation: morphBlob 10s ease-in-out infinite; }
+
+  @keyframes particleRise {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    50%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+  .ptc-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ptc { position: absolute; background: rgba(167,139,250,0.5); border-radius: 50%; }
+
+  /* Page entry animation */
+  @keyframes pageIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  @keyframes auroraShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: rgba(10, 9, 16, 0.97);
+    backdrop-filter: blur(32px) saturate(160%);
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex; flex-direction: column;
+    z-index: 100;
+    animation: pageIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+    box-shadow: 1px 0 0 rgba(251,191,36,0.12), 4px 0 24px rgba(0,0,0,0.5);
+  }
+  /* Top aurora bar */
+  .sidebar::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 2;
+    background: linear-gradient(90deg, transparent, rgba(251,191,36,0.7), rgba(167,139,250,0.6), rgba(103,232,249,0.5), transparent);
+    background-size: 300% 100%;
+    animation: auroraShift 4s ease infinite;
+  }
+
+  .sidebar-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  /* Logo orbit */
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .logo-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 13px;
+    background: rgba(20, 22, 36, 0.95);
+    position: relative;
+    box-shadow: 0 0 20px rgba(251,191,36,0.25);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .logo-ring .orbit {
+    position: absolute; inset: -5px;
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 17px;
+    animation: orbitSpin 9s linear infinite;
+  }
+  .logo-icon {
+    font-family: 'Material Symbols Outlined';
+    font-size: 20px; color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    position: relative; z-index: 1;
+  }
+
+  /* Nav Links */
+  .history-section { flex: 1; overflow-y: auto; padding: 1rem 0.75rem; }
+  .nav-item {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 500; color: rgba(202,196,212,0.7);
+    transition: all 0.22s cubic-bezier(0.16,1,0.3,1);
+    text-decoration: none; margin-bottom: 0.35rem; position: relative;
+  }
+  .nav-item:hover {
+    background: rgba(251,191,36,0.07);
+    color: var(--primary);
+    transform: translateX(3px);
+  }
+  .nav-item.active {
+    background: linear-gradient(90deg, rgba(251,191,36,0.14), rgba(251,191,36,0.04));
+    color: var(--primary); font-weight: 700;
+    border: 1px solid rgba(251,191,36,0.2);
+    box-shadow: inset 3px 0 0 var(--primary);
+  }
+
+  .chat-nav-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 700; color: var(--amber);
+    background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
+    transition: all 0.2s; margin-top: auto;
+    text-decoration: none;
+  }
+  .chat-nav-btn:hover { background: rgba(251,191,36,0.15); transform: translateX(2px); }
+
+  .profile-card {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--amber), #d97706);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+    border: 1.5px solid rgba(251,191,36,0.3);
+  }
+  .plan-badge {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.08em; font-weight: 700;
+    padding: 2px 7px; border-radius: 20px; text-transform: uppercase;
+    background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3);
+  }
+
+  .logout-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(202,196,212,0.5); padding: 0.25rem;
+    transition: color 0.2s;
+  }
+  .logout-btn:hover { color: #f87171; }
+
+  /* ── MAIN CONTENT ── */
+  .main-wrap {
+    margin-left: var(--sidebar-w);
+    flex: 1; display: flex; flex-direction: column;
+    height: 100vh; overflow-y: auto; position: relative; z-index: 10;
+  }
+  .main-wrap::-webkit-scrollbar { width: 6px; }
+  .main-wrap::-webkit-scrollbar-track { background: transparent; }
+  .main-wrap::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.2); border-radius: 10px; }
+
+  /* Top bar */
+  .topbar {
+    height: 64px;
+    background: rgba(10,9,16,0.92);
+    backdrop-filter: blur(28px) saturate(150%);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; flex-shrink: 0; position: relative;
+    box-shadow: 0 1px 0 rgba(251,191,36,0.1), 0 4px 20px rgba(0,0,0,0.3);
+  }
+  /* Aurora bottom border on topbar */
+  .topbar::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(251,191,36,0.4) 30%, rgba(167,139,250,0.3) 60%, transparent 100%);
+    background-size: 200% 100%;
+    animation: auroraShift 5s ease infinite;
+  }
+  .topbar-title {
+    font-family: 'Clash Display', sans-serif; font-size: 18px; font-weight: 700; color: #fff;
+    letter-spacing: -0.3px; display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .admin-badge {
+    background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2);
+    color: var(--amber); font-size: 9px; font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase;
+  }
+
+  .user-chat-shortcut {
+    display: flex; align-items: center; gap: 0.45rem;
+    background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25);
+    color: var(--amber); font-size: 12.5px; font-weight: 700;
+    padding: 0.45rem 1rem; border-radius: 10px; cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .user-chat-shortcut:hover { background: rgba(251,191,36,0.18); transform: translateY(-1px); }
+
+  /* Container structure */
+  .content-container {
+    padding: 2rem; max-width: 1300px; width: 100%; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 2rem;
+    animation: pageIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes shimmerSweep {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+  }
+  @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+  .stat-card {
+    background: rgba(18,17,28,0.88);
+    backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+    border: 1.5px solid rgba(255,255,255,0.07);
+    border-radius: 22px; padding: 1.6rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    box-shadow: 0 20px 48px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.07);
+    animation: floatCard 7s ease-in-out infinite;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 28px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(251,191,36,0.15);
+  }
+  /* Shimmer sweep on hover */
+  .stat-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform 0.0s;
+  }
+  .stat-card:hover::after { animation: shimmerSweep 0.7s ease forwards; }
+
+  .bento-card {
+    background: rgba(18,17,28,0.88);
+    backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+    border: 1.5px solid rgba(255,255,255,0.07);
+    border-radius: 24px; padding: 1.75rem;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: box-shadow 0.3s;
+  }
+  .bento-card:hover {
+    box-shadow: 0 28px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(251,191,36,0.1);
+  }
+
+  .stat-header { display: flex; align-items: center; justify-content: space-between; }
+  .stat-icon-box {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stat-lbl { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .stat-val { font-size: 28px; font-weight: 700; color: #fff; font-family: 'Satoshi', sans-serif; letter-spacing: -0.5px; }
+  
+  .trend-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+    display: flex; align-items: center; gap: 2px; color: var(--mint);
+  }
+
+  /* Stats grid — 4 compact columns */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr; } }
+
+  /* Bento grid */
+  .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+  
+  .bento-card {
+    background: var(--card);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid var(--border); border-radius: 24px;
+    padding: 1.75rem; box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+
+  .card-title {
+    font-family: 'Clash Display', sans-serif; font-size: 18px; font-weight: 700; color: #fff;
+    margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.45rem;
+  }
+  .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+
+  /* Instructions Textarea Styling */
+  .instructions-box {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .instructions-area {
+    width: 100%; min-height: 220px; background: rgba(10, 11, 22, 0.6);
+    border: 1.5px solid var(--border); border-radius: 16px;
+    padding: 1.1rem; color: #f1f1f9; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.6; outline: none; resize: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .instructions-area:focus {
+    border-color: rgba(167,139,250,0.45);
+    box-shadow: 0 0 0 3px rgba(167,139,250,0.08);
+  }
+
+  /* Preset buttons */
+  .presets-wrap { display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center; }
+  .preset-btn {
+    background: rgba(20,22,36,0.6); border: 1.5px solid var(--border);
+    color: rgba(202,196,212,0.85); font-size: 12px; font-weight: 500;
+    padding: 0.5rem 1rem; border-radius: 10px; cursor: pointer;
+    transition: all 0.2s; display: flex; align-items: center; gap: 0.35rem;
+  }
+  .preset-btn:hover { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.3); color: var(--primary); }
+  .preset-btn:active { transform: scale(0.97); }
+
+  /* Buttons */
+  .btn-save {
+    background: linear-gradient(135deg, var(--primary-dim), var(--primary-dark));
+    color: #fff; border: none; padding: 0.65rem 1.25rem; border-radius: 10px;
+    font-weight: 700; font-size: 13.5px; cursor: pointer;
+    display: flex; align-items: center; gap: 0.45rem;
+    box-shadow: 0 6px 18px -4px rgba(167,139,250,0.45);
+    transition: all 0.25s;
+  }
+  .btn-save:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -4px rgba(167,139,250,0.55); }
+  .btn-save:active { transform: scale(0.97); }
+  .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Mock Model Loader */
+  .model-stat-row {
+    background: rgba(10,11,22,0.45); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.75rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .model-stat-left { display: flex; align-items: center; gap: 0.65rem; }
+  .dot-indicator { width: 7px; height: 7px; border-radius: 50%; }
+
+  /* Toast notification */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(20,22,36,0.97); border: 1.5px solid rgba(167,139,250,0.3);
+    backdrop-filter: blur(16px); border-radius: 14px; padding: 11px 18px;
+    color: var(--text); font-size: 13.5px; display: flex; align-items: center; gap: 9px;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+    opacity: 0; z-index: 999; white-space: nowrap; pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast .t-icon { font-family: 'Material Symbols Outlined'; font-size: 17px; font-variation-settings: 'FILL' 1; }
+
+  /* Gradient text */
+  .grad-txt { background: linear-gradient(135deg, #cebdff, #a78bfa, #ffafd3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── MOBILE RESPONSIVENESS ── */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 1px 0 0 rgba(245,158,11,0.1), 8px 0 32px rgba(0,0,0,0.6) !important;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-header .sidebar-close-btn {
+      display: flex !important;
+    }
+    .main-wrap {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+    .topbar .menu-toggle-btn {
+      display: flex !important;
+    }
+    .topbar {
+      padding: 0 1rem;
+    }
+    .content-container {
+      padding: 1.25rem 0.85rem !important;
+      gap: 1.25rem !important;
+    }
+    .topbar-title {
+      font-size: 15px !important;
+    }
+    .stat-card {
+      padding: 1.25rem !important;
+      border-radius: 18px !important;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3) !important;
+    }
+    .bento-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.25rem !important;
+    }
+    .bento-grid > div {
+      grid-column: span 12 !important;
+    }
+    .bento-card {
+      padding: 1.5rem 1.15rem !important;
+      border-radius: 20px !important;
+    }
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1rem;
+      border-radius: 12px;
+    }
+    .user-chat-shortcut {
+      padding: 0.35rem 0.65rem !important;
+      font-size: 11.5px !important;
+    }
+    .presets-wrap {
+      gap: 0.5rem !important;
+    }
+    .preset-btn {
+      padding: 0.45rem 0.75rem !important;
+      font-size: 11px !important;
+    }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/app.js" defer></script>
+</head>
+<body>
+
+<!-- Atmosphere Blobs -->
+<div class="blob-wrap">
+  <div class="blob" style="width:45%;height:45%;top:-10%;left:-10%;background:radial-gradient(circle,#a78bfa,transparent 70%)"></div>
+  <div class="blob" style="width:35%;height:35%;bottom:-8%;right:-5%;background:radial-gradient(circle,#fbbf24,transparent 70%);animation-delay:-5s"></div>
+</div>
+<div class="ptc-wrap" id="ptc"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header" style="gap: 1.1rem">
+    <div class="logo-ring">
+      <div class="orbit"></div>
+      <span class="logo-icon" style="font-family:'Material Symbols Outlined'">restaurant</span>
+    </div>
+    <div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;color:var(--primary);letter-spacing:-0.3px">Kolachi Restaurant</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-dim)">Seaside Operations Console</div>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <a href="/admin" class="nav-item active">
+      <span class="mi">dashboard</span>
+      <span>Instructions</span>
+    </a>
+    <a href="/admin-users" class="nav-item">
+      <span class="mi">group</span>
+      <span>Registered Users</span>
+    </a>
+    <a href="/admin-analytics" class="nav-item">
+      <span class="mi">analytics</span>
+      <span>Inference Logs</span>
+    </a>
+    
+    <a href="/chat?admin=true" class="chat-nav-btn">
+      <span class="mi">forum</span>
+      <span>User Chat Workspace</span>
+    </a>
+  </div>
+
+  <div class="profile-card">
+    <div class="avatar" id="adminAvatar">Z</div>
+    <div style="flex:1;overflow:hidden;min-width:0">
+      <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="adminDisplayName">Zaid Ali</div>
+      <div style="display:flex;align-items:center;gap:5px;margin-top:3px">
+        <span class="plan-badge">Admin</span>
+      </div>
+    </div>
+    <button class="logout-btn" id="adminLogoutBtn" title="Sign out">
+      <span class="mi" style="font-size:20px">logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN WRAPPER -->
+<div class="main-wrap">
+  <header class="topbar">
+    <div class="topbar-title">
+      <span>Kolachi Restaurant HQ</span>
+      <span class="admin-badge">Mission Control</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem">
+      <a href="/chat?admin=true" class="user-chat-shortcut">
+        <span class="mi" style="font-size:16px">open_in_new</span>
+        <span>User Chat</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="content-container">
+    <!-- Section Title -->
+    <div>
+      <h2 style="font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;margin-bottom:0.25rem" class="grad-txt">System Overview</h2>
+      <p style="font-size:14px;color:rgba(202,196,212,0.6);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em">Monitoring real-time diner chatbot settings and throughput</p>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stats-grid">
+      <!-- Total Users -->
+      <div class="stat-card" style="animation-delay:0.1s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(123,208,255,0.15)">
+            <span class="mi" style="color:var(--secondary);font-size:20px">person_add</span>
+          </div>
+          <span class="trend-badge">
+            <span class="mi" style="font-size:14px">trending_up</span> 100%
+          </span>
+        </div>
+        <span class="stat-lbl">Registered Users</span>
+        <h3 class="stat-val count-up" data-value="1" id="totalUsersCardVal">0</h3>
+      </div>
+      <!-- Inferences -->
+      <div class="stat-card" style="animation-delay:0.2s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(167,139,250,0.15)">
+            <span class="mi" style="color:var(--primary-dim);font-size:20px">api</span>
+          </div>
+          <span class="trend-badge">
+            <span class="mi" style="font-size:14px">trending_up</span> Live
+          </span>
+        </div>
+        <span class="stat-lbl">System Messages</span>
+        <h3 class="stat-val count-up" data-value="0" id="totalMessagesCardVal">0</h3>
+      </div>
+      <!-- Strict Refusals -->
+      <div class="stat-card" style="animation-delay:0.3s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(248,113,113,0.15)">
+            <span class="mi" style="color:#f87171;font-size:20px">block</span>
+          </div>
+          <span class="trend-badge" style="color:#f87171">
+            Strict
+          </span>
+        </div>
+        <span class="stat-lbl">Off-Topic Refusals</span>
+        <h3 class="stat-val count-up" data-value="0" id="refusalsCardVal" style="color:#f87171">0</h3>
+      </div>
+      <!-- Status -->
+      <div class="stat-card" style="animation-delay:0.4s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(52,211,153,0.15)">
+            <span class="mi" style="color:var(--mint);font-size:20px">verified_user</span>
+          </div>
+          <span class="trend-badge" style="color:var(--mint)">
+            99.9%
+          </span>
+        </div>
+        <span class="stat-lbl">Core Cluster Health</span>
+        <h3 class="stat-val" style="color:var(--mint)">ACTIVE</h3>
+      </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+      <!-- Chatbot Instructions Form -->
+      <div class="bento-card bento-card-main" style="grid-column: span 8; animation-delay: 0.15s">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem">
+          <div>
+            <h4 class="card-title">⚙️ System Instructions Prompt</h4>
+            <p class="card-sub" style="margin-bottom:0">Configure the chatbot instructions to strictly deal with customers</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.75rem">
+            <span id="saveStatus" style="font-size:12px;color:var(--mint);font-family:'JetBrains Mono',monospace;opacity:0;transition:opacity 0.25s">✓ Saved successfully</span>
+            <button id="saveInstructionsBtn" class="btn-save">
+              <span class="mi" style="font-size:17px">save</span>
+              <span>Save Prompt</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="instructions-box">
+          <textarea id="instructionsText" class="instructions-area" placeholder="Querying system instructions from Supabase..."></textarea>
+          
+          <div class="presets-wrap">
+            <span style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--amber);font-weight:700">⚡ QUICK PRESETS:</span>
+            <button id="presetRestaurant" class="preset-btn">🍽️ Kolachi Karachi Strict</button>
+            <button id="presetSupport" class="preset-btn">🎧 Reservations Support</button>
+            <button id="presetStrict" class="preset-btn">🔒 Seaside Guardrails On</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut Model Loader / Active Cluster -->
+      <div class="bento-card" style="grid-column: span 4; animation-delay: 0.25s; display:flex; flex-direction:column">
+        <h4 class="card-title">Inference Engine</h4>
+        <p class="card-sub">Active clusters throughput load</p>
+        
+        <div style="flex:1; display:flex; flex-direction:column; justify-content:center">
+          <div class="model-stat-row">
+            <div class="model-stat-left">
+              <div class="dot-indicator" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></div>
+              <span style="font-size:13.5px;font-weight:700">Llama-3.3-70b</span>
+            </div>
+            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--muted)">100% Load</span>
+          </div>
+
+          <div class="model-stat-row" style="opacity:0.5">
+            <div class="model-stat-left">
+              <div class="dot-indicator" style="background:var(--primary-dim)"></div>
+              <span style="font-size:13.5px;font-weight:500">Mixtral-8x7b</span>
+            </div>
+            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Standby</span>
+          </div>
+
+          <div class="model-stat-row" style="opacity:0.5">
+            <div class="model-stat-left">
+              <div class="dot-indicator" style="background:var(--secondary)"></div>
+              <span style="font-size:13.5px;font-weight:500">Gemma-2-9b</span>
+            </div>
+            <span style="font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--muted)">Offline</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="t-icon" id="toast-icon">info</span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ── Rise-up particles
+(function(){
+  const w = document.getElementById('ptc');
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');p.className='ptc';
+    const sz=Math.random()*2+1+'px';
+    p.style.cssText=`width:${sz};height:${sz};left:${Math.random()*100}vw;opacity:${Math.random()*.4+.1};animation:particleRise ${Math.random()*12+7}s linear infinite;animation-delay:${Math.random()*14}s`;
+    w.appendChild(p);
+  }
+})();
+
+// ── Particle follow mouse movement
+document.addEventListener('mousemove', (e) => {
+  const blobs = document.querySelectorAll('.blob');
+  const { clientX, clientY } = e;
+  const xP = (clientX / window.innerWidth - 0.5) * 35;
+  const yP = (clientY / window.innerHeight - 0.5) * 35;
+  
+  blobs.forEach((blob, i) => {
+    const factor = (i + 1) * 0.25;
+    blob.style.transform = `translate(${xP * factor}px, ${yP * factor}px) scale(${1 + Math.abs(xP)/400})`;
+  });
+});
+
+// ── Count-up animations observer
+document.addEventListener('DOMContentLoaded', () => {
+  const countUp = (el) => {
+    const target = parseInt(el.getAttribute('data-value')) || 0;
+    if(target === 0) { el.textContent = '0'; return; }
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const update = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const val = Math.floor(progress === 1 ? target : target * (1 - Math.pow(2, -10 * progress)));
+      el.textContent = val.toLocaleString();
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  };
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        countUp(e.target);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.count-up').forEach(el => obs.observe(el));
+});
+</script>
+
+</body>
+</html>

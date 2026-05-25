@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kolachi Restaurant | Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07070B;
+    --surface: #100F15;
+    --surface-low: #0C0B0E;
+    --card: rgba(20, 19, 27, 0.72);
+    --border: rgba(245, 158, 11, 0.16);
+    --primary: #FBBF24;
+    --primary-dim: #F59E0B;
+    --primary-dark: #B45309;
+    --primary-btn-from: #FBBF24;
+    --primary-btn-to: #B45309;
+    --tertiary: #FDA4AF;
+    --secondary: #FB7185;
+    --text: #F4F4F5;
+    --muted: rgba(212, 212, 216, 0.65);
+    --sidebar-w: 280px;
+    --input-bg: rgba(12, 11, 17, 0.7);
+    --input-border: rgba(245, 158, 11, 0.22);
+    --input-focus-border: #FBBF24;
+    --glow: rgba(245, 158, 11, 0.28);
+  }
+  @keyframes ncGradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  html, body { height: 100%; overflow: hidden; background: #07070B; }
+  body {
+    font-family: 'Satoshi', sans-serif;
+    color: var(--text);
+    display: flex;
+    background: linear-gradient(-45deg, #07070B, #0F0E17, #170F25, #07070B);
+    background-size: 400% 400%;
+    animation: ncGradientFlow 12s ease infinite;
+  }
+
+  /* Icons */
+  .mi { font-family: 'Material Symbols Outlined'; font-style: normal; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; line-height: 1; }
+  .mi-fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  /* Background blobs */
+  @keyframes morphBlob { 0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%} 34%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%} 67%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%} }
+  .blob-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; filter: blur(12px) !important; opacity: 0.20; animation: morphBlob 10s ease-in-out infinite; }
+
+  /* Page entry animation */
+  @keyframes pageIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: rgba(14, 16, 26, 0.92);
+    backdrop-filter: blur(24px);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    z-index: 100;
+    animation: pageIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .sidebar-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  /* Logo orbit */
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .logo-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 13px;
+    background: rgba(20, 22, 36, 0.95);
+    position: relative;
+    box-shadow: 0 0 20px rgba(251,191,36,0.25);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .logo-ring .orbit {
+    position: absolute; inset: -5px;
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 17px;
+    animation: orbitSpin 9s linear infinite;
+  }
+  .logo-icon {
+    font-family: 'Material Symbols Outlined';
+    font-size: 20px; color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    position: relative; z-index: 1;
+  }
+
+  /* History list */
+  .history-section { flex: 1; overflow-y: auto; padding: 1rem 0.75rem; }
+  .nav-item {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 500; color: rgba(202,196,212,0.7);
+    transition: all 0.2s; text-decoration: none;
+    margin-bottom: 0.35rem;
+  }
+  .nav-item:hover { background: rgba(167,139,250,0.08); color: var(--primary); }
+  .nav-item.active { background: rgba(167,139,250,0.12); color: var(--primary); font-weight: 700; border: 1px solid rgba(167,139,250,0.15); }
+
+  .admin-nav-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 700; color: #fbbf24;
+    background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
+    transition: all 0.2s; margin-bottom: 0.5rem;
+    text-decoration: none;
+  }
+  .admin-nav-btn:hover { background: rgba(251,191,36,0.15); transform: translateX(2px); }
+
+  .profile-card {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--primary-dim), var(--primary-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+    border: 1.5px solid rgba(167,139,250,0.3);
+  }
+  .plan-badge {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.08em; font-weight: 700;
+    padding: 2px 7px; border-radius: 20px; text-transform: uppercase;
+  }
+  .plan-free { background: rgba(202,196,212,0.12); color: rgba(202,196,212,0.7); border: 1px solid rgba(202,196,212,0.2); }
+  .plan-pro { background: rgba(167,139,250,0.15); color: var(--primary); border: 1px solid rgba(167,139,250,0.3); }
+  .plan-admin { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+
+  .logout-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(202,196,212,0.5); padding: 0.25rem;
+    transition: color 0.2s;
+  }
+  .logout-btn:hover { color: #f87171; }
+
+  /* ── MAIN WORKSPACE ── */
+  .main-wrap {
+    margin-left: var(--sidebar-w);
+    flex: 1; display: flex; flex-direction: column;
+    height: 100vh; overflow-y: auto; position: relative; z-index: 10;
+  }
+  .main-wrap::-webkit-scrollbar { width: 6px; }
+  .main-wrap::-webkit-scrollbar-track { background: transparent; }
+  .main-wrap::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.2); border-radius: 10px; }
+
+  /* Top bar */
+  .topbar {
+    height: 58px; background: rgba(13,15,26,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.5rem; flex-shrink: 0;
+  }
+
+  /* Content body */
+  .content-container {
+    padding: 2.25rem 2rem; max-width: 800px; width: 100%; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 2rem;
+    animation: pageIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* Styling panels */
+  .settings-card {
+    background: var(--card); border: 1.5px solid var(--border); border-radius: 20px;
+    padding: 2.25rem 2rem; backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  }
+
+  .card-title {
+    font-family: 'Clash Display', sans-serif; font-size: 19px; font-weight: 700; color: #fff;
+    margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.75rem; }
+
+  /* Details row summary */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1rem; }
+  .summary-item {
+    background: rgba(10, 11, 22, 0.45); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .summary-lbl { font-size: 11px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: var(--muted); }
+  .summary-val { font-size: 14.5px; font-weight: 700; color: #fff; }
+
+  /* Fields styling matching login */
+  .field-wrap { position: relative; width: 100%; margin-bottom: 1rem; }
+  .field-icon {
+    position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+    font-family: 'Material Symbols Outlined'; font-size: 19px;
+    color: var(--muted); pointer-events: none; transition: color 0.25s;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    line-height: 1;
+  }
+  .field-wrap:focus-within .field-icon { color: var(--primary); }
+
+  input.nc-input {
+    display: block; width: 100%; height: 50px; padding: 0 1rem 0 2.85rem;
+    background: var(--input-bg) !important;
+    appearance: none !important; -webkit-appearance: none !important;
+    border: 1.5px solid var(--input-border) !important; border-radius: 12px !important;
+    color: var(--text) !important; font-family: 'Satoshi', sans-serif !important;
+    font-size: 14.5px !important; outline: none !important; transition: border-color 0.25s, box-shadow 0.25s;
+    -webkit-text-fill-color: var(--text) !important;
+  }
+  input.nc-input::placeholder { color: var(--muted) !important; }
+  input.nc-input:focus {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: 0 0 0 3px rgba(167,139,250,0.15), 0 0 18px rgba(167,139,250,0.08) !important;
+  }
+
+  .btn-primary {
+    width: 100%; height: 48px; border-radius: 12px; border: none;
+    background: linear-gradient(135deg, var(--primary-btn-from), var(--primary-btn-to));
+    color: #fff; font-family: 'Satoshi', sans-serif; font-size: 14.5px; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+    box-shadow: 0 6px 18px -4px rgba(167,139,250,0.45);
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .btn-primary::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0); transition: background 0.2s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -4px rgba(167,139,250,0.55); }
+  .btn-primary:hover::after { background: rgba(255,255,255,0.07); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  /* Errors styling */
+  .err { font-size: 12.5px; color: #f87171; margin-top: 5px; display: none; margin-bottom: 0.75rem; }
+  .err.show { display: block; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(20,22,36,0.97); border: 1.5px solid rgba(167,139,250,0.3);
+    backdrop-filter: blur(16px); border-radius: 14px; padding: 11px 18px;
+    color: var(--text); font-size: 13.5px; display: flex; align-items: center; gap: 9px;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+    opacity: 0; z-index: 999; white-space: nowrap; pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast .t-icon { font-family: 'Material Symbols Outlined'; font-size: 17px; font-variation-settings: 'FILL' 1; }
+
+  /* Gradient Text */
+  .grad-txt { background: linear-gradient(135deg, #cebdff, #a78bfa, #ffafd3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── MOBILE RESPONSIVENESS ── */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 1px 0 0 rgba(245,158,11,0.1), 8px 0 32px rgba(0,0,0,0.6) !important;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-header .sidebar-close-btn {
+      display: flex !important;
+    }
+    .main-wrap {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+    .topbar .menu-toggle-btn {
+      display: flex !important;
+    }
+    .topbar {
+      padding: 0 1rem;
+    }
+    .content-container {
+      padding: 1.25rem 0.85rem !important;
+      gap: 1.25rem !important;
+    }
+    .summary-grid {
+      grid-template-columns: 1fr !important;
+      gap: 0.8rem !important;
+    }
+    .settings-card {
+      padding: 1.5rem 1.15rem !important;
+      border-radius: 18px !important;
+      background: rgba(20, 19, 27, 0.72) !important;
+      border: 1.2px solid rgba(245, 158, 11, 0.14) !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+    }
+    .topbar-title {
+      font-size: 16px !important;
+    }
+    input.nc-input {
+      height: 46px !important;
+      font-size: 13.8px !important;
+    }
+    .btn-primary {
+      height: 46px !important;
+      font-size: 13.8px !important;
+    }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/app.js" defer></script>
+</head>
+<body>
+
+<!-- Atmosphere Blobs -->
+<div class="blob-wrap">
+  <div class="blob" style="width:45%;height:45%;top:-5%;left:-8%;background:radial-gradient(circle,#a78bfa,transparent 70%)"></div>
+  <div class="blob" style="width:35%;height:35%;bottom:-5%;right:-5%;background:radial-gradient(circle,#7bd0ff,transparent 70%);animation-delay:-7s"></div>
+</div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header" style="gap: 1.1rem">
+    <div class="logo-ring">
+      <div class="orbit"></div>
+      <span class="logo-icon" style="font-family:'Material Symbols Outlined'">restaurant</span>
+    </div>
+    <div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;color:var(--primary);letter-spacing:-0.3px">Kolachi</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-dim)">DHA Karachi Sea-front</div>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <!-- Admin button (injected by app.js for admin) -->
+    <a href="/admin" class="admin-nav-btn" id="adminBtn" style="display:none">
+      <span class="mi" style="font-size:18px;color:#fbbf24">shield</span>
+      Admin Panel
+    </a>
+    <a href="/chat" class="nav-item">
+      <span class="mi" style="font-size:18px">chat</span>
+      <span>Chat Workspace</span>
+    </a>
+    <a href="/history" class="nav-item">
+      <span class="mi">history</span>
+      <span>Message History</span>
+    </a>
+    <a href="/settings" class="nav-item active">
+      <span class="mi">settings</span>
+      <span>Profile Settings</span>
+    </a>
+  </div>
+
+  <div class="profile-card">
+    <div class="avatar" id="sidebarAvatar">?</div>
+    <div style="flex:1;overflow:hidden;min-width:0">
+      <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="sidebarName">Loading...</div>
+      <div style="display:flex;align-items:center;gap:5px;margin-top:3px">
+        <div style="font-size:11px;color:rgba(202,196,212,0.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1" id="sidebarEmail">...</div>
+        <span class="plan-badge plan-free" id="planBadge">Free</span>
+      </div>
+    </div>
+    <button class="logout-btn" id="logoutBtn" title="Sign out">
+      <span class="mi" style="font-size:20px">logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN WORKSPACE -->
+<div class="main-wrap">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:0.5rem">
+      <div style="width:8px;height:8px;border-radius:50%;background:#cebdff"></div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(202,196,212,0.7)">PROFILE PREFERENCES & SECURITY</span>
+    </div>
+  </header>
+
+  <div class="content-container">
+    
+    <!-- Title Section -->
+    <div>
+      <h2 style="font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;margin-bottom:0.25rem" class="grad-txt">Profile Settings</h2>
+      <p style="font-size:14px;color:rgba(202,196,212,0.6);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em">Manage your account credentials, preferences, and details</p>
+    </div>
+
+    <!-- Account Details Summary -->
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-lbl">Member Account Role</span>
+        <span class="summary-val" id="summaryRoleBadge">USER</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-lbl">Active Billing Tier</span>
+        <span class="summary-val" id="summaryPlanBadge">FREE SUBSCRIPTION</span>
+      </div>
+    </div>
+
+    <!-- Profile Preferences Form -->
+    <div class="settings-card">
+      <h3 class="card-title">Display Info</h3>
+      <p class="card-sub">Customize your display name shown in the workspaces</p>
+
+      <form id="settingsNameForm">
+        <div class="field-wrap">
+          <span class="field-icon">person</span>
+          <input class="nc-input" id="settingsName" type="text" placeholder="Full Display Name"/>
+        </div>
+        <p class="err" id="settingsName-err"></p>
+        
+        <button type="submit" class="btn-primary" id="saveProfileBtn">
+          <span>Save Changes</span>
+          <span class="mi" style="font-size:18px">check_circle</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Password Settings Card -->
+    <div class="settings-card">
+      <h3 class="card-title">Account Security</h3>
+      <p class="card-sub">Change your account password securely</p>
+
+      <form id="settingsPasswordForm">
+        <div class="field-wrap">
+          <span class="field-icon">lock_open</span>
+          <input class="nc-input" id="settingsPassword" type="password" placeholder="New Password" autocomplete="new-password"/>
+        </div>
+        <p class="err" id="settingsPassword-err"></p>
+
+        <div class="field-wrap">
+          <span class="field-icon">lock</span>
+          <input class="nc-input" id="settingsConfirmPassword" type="password" placeholder="Confirm New Password" autocomplete="new-password"/>
+        </div>
+        <p class="err" id="settingsConfirm-err"></p>
+        
+        <button type="submit" class="btn-primary" id="savePasswordBtn">
+          <span>Update Password</span>
+          <span class="mi" style="font-size:18px">shield_lock</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="t-icon" id="toast-icon">info</span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ── Page entry transition
+document.body.style.opacity = '0';
+window.addEventListener('load', () => {
+  document.body.style.transition = 'opacity 0.4s ease';
+  document.body.style.opacity = '1';
+});
+
+// ── Smooth nav
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  const h = a.getAttribute('href');
+  if (!h || h === '#' || h.startsWith('http')) return;
+  e.preventDefault();
+  document.body.style.transition = 'opacity 0.32s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => window.location.href = h, 340);
+});
+</script>
+
+</body>
+</html>

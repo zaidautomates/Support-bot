@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kolachi Restaurant HQ | Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    --bg: #07070B;
+    --surface: #100F15;
+    --surface-low: #0C0B0E;
+    --card: rgba(20, 19, 27, 0.72);
+    --border: rgba(245, 158, 11, 0.16);
+    --primary: #FBBF24;
+    --primary-dim: #F59E0B;
+    --primary-dark: #B45309;
+    --tertiary: #FDA4AF;
+    --secondary: #FB7185;
+    --text: #F4F4F5;
+    --muted: rgba(212, 212, 216, 0.65);
+    --sidebar-w: 280px;
+    --mint: #34d399;
+    --amber: #fbbf24;
+    --glow: rgba(245, 158, 11, 0.28);
+  }
+
+  @keyframes ncGradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  html, body { height: 100%; overflow: hidden; background: #07070B; }
+  body {
+    font-family: 'Satoshi', sans-serif;
+    color: var(--text);
+    display: flex;
+    background: linear-gradient(-45deg, #07070B, #0F0E17, #170F25, #07070B);
+    background-size: 400% 400%;
+    animation: ncGradientFlow 12s ease infinite;
+  }
+
+  /* Icons */
+  .mi { font-family: 'Material Symbols Outlined'; font-style: normal; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; line-height: 1; }
+  .mi-fill { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+  /* Background elements */
+  @keyframes morphBlob { 0%,100%{border-radius:40% 60% 70% 30%/40% 50% 60% 50%} 34%{border-radius:70% 30% 50% 50%/30% 30% 70% 70%} 67%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%} }
+  .blob-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; filter: blur(12px) !important; opacity: 0.20; animation: morphBlob 10s ease-in-out infinite; }
+
+  @keyframes particleRise {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    50%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+  .ptc-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .ptc { position: absolute; background: rgba(167,139,250,0.5); border-radius: 50%; }
+
+  /* Page entry animation */
+  @keyframes pageIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed; left: 0; top: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: rgba(14, 16, 26, 0.92);
+    backdrop-filter: blur(24px);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    z-index: 100;
+    animation: pageIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  .sidebar-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  /* Logo orbit */
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .logo-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 13px;
+    background: rgba(20, 22, 36, 0.95);
+    position: relative;
+    box-shadow: 0 0 20px rgba(251,191,36,0.25);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .logo-ring .orbit {
+    position: absolute; inset: -5px;
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 17px;
+    animation: orbitSpin 9s linear infinite;
+  }
+  .logo-icon {
+    font-family: 'Material Symbols Outlined';
+    font-size: 20px; color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    position: relative; z-index: 1;
+  }
+
+  /* Nav Links */
+  .history-section { flex: 1; overflow-y: auto; padding: 1rem 0.75rem; }
+  .nav-item {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 500; color: rgba(202,196,212,0.7);
+    transition: all 0.2s; text-decoration: none;
+    margin-bottom: 0.35rem;
+  }
+  .nav-item:hover { background: rgba(167,139,250,0.08); color: var(--primary); }
+  .nav-item.active { background: rgba(167,139,250,0.12); color: var(--primary); font-weight: 700; border: 1px solid rgba(167,139,250,0.15); }
+
+  .chat-nav-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.75rem 0.85rem; border-radius: 12px; cursor: pointer;
+    font-size: 14px; font-weight: 700; color: var(--amber);
+    background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
+    transition: all 0.2s; margin-top: auto;
+    text-decoration: none;
+  }
+  .chat-nav-btn:hover { background: rgba(251,191,36,0.15); transform: translateX(2px); }
+
+  .profile-card {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--amber), #d97706);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: #fff;
+    border: 1.5px solid rgba(251,191,36,0.3);
+  }
+  .plan-badge {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.08em; font-weight: 700;
+    padding: 2px 7px; border-radius: 20px; text-transform: uppercase;
+    background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3);
+  }
+
+  .logout-btn {
+    background: none; border: none; cursor: pointer;
+    color: rgba(202,196,212,0.5); padding: 0.25rem;
+    transition: color 0.2s;
+  }
+  .logout-btn:hover { color: #f87171; }
+
+  /* ── MAIN CONTENT ── */
+  .main-wrap {
+    margin-left: var(--sidebar-w);
+    flex: 1; display: flex; flex-direction: column;
+    height: 100vh; overflow-y: auto; position: relative; z-index: 10;
+  }
+  .main-wrap::-webkit-scrollbar { width: 6px; }
+  .main-wrap::-webkit-scrollbar-track { background: transparent; }
+  .main-wrap::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.2); border-radius: 10px; }
+
+  /* Top bar */
+  .topbar {
+    height: 64px;
+    background: rgba(13,15,26,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; flex-shrink: 0;
+  }
+  .topbar-title {
+    font-family: 'Clash Display', sans-serif; font-size: 18px; font-weight: 700; color: #fff;
+    letter-spacing: -0.3px; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .admin-badge {
+    background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2);
+    color: var(--amber); font-size: 9px; font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase;
+  }
+
+  .user-chat-shortcut {
+    display: flex; align-items: center; gap: 0.45rem;
+    background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25);
+    color: var(--amber); font-size: 12.5px; font-weight: 700;
+    padding: 0.45rem 1rem; border-radius: 10px; cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .user-chat-shortcut:hover { background: rgba(251,191,36,0.18); transform: translateY(-1px); }
+
+  /* Container */
+  .content-container {
+    padding: 2rem; max-width: 1300px; width: 100%; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 2rem;
+    animation: pageIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  /* Stats grid — 4 compact columns, never stretches */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 1100px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .stats-grid { grid-template-columns: 1fr; } }
+  
+  @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .stat-card {
+    background: var(--card);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1.5px solid var(--border); border-radius: 20px;
+    padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    animation: floatCard 6s ease-in-out infinite;
+  }
+  .stat-header { display: flex; align-items: center; justify-content: space-between; }
+  .stat-icon-box {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stat-lbl { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .stat-val { font-size: 28px; font-weight: 700; color: #fff; font-family: 'Satoshi', sans-serif; letter-spacing: -0.5px; }
+
+  /* Bento segment */
+  .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+  .bento-card {
+    background: var(--card); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    border: 1.5px solid var(--border); border-radius: 24px;
+    padding: 1.75rem; box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .card-title {
+    font-family: 'Clash Display', sans-serif; font-size: 17px; font-weight: 700; color: #fff;
+    margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.45rem;
+  }
+  .card-sub { font-size: 12.5px; color: var(--muted); margin-bottom: 1.25rem; }
+
+  /* Table styles */
+  .table-wrap { overflow-x: auto; width: 100%; }
+  table.nc-table { width: 100%; border-collapse: collapse; text-align: left; }
+  
+  th.nc-th {
+    padding: 0.85rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
+    border-bottom: 1.5px solid var(--border); font-weight: 700;
+  }
+
+  td.nc-td {
+    padding: 0.85rem 1rem; font-size: 13.5px; color: var(--text);
+    border-bottom: 1px solid rgba(167,139,250,0.06); vertical-align: middle;
+  }
+  tr.nc-tr:last-child td.nc-td { border-bottom: none; }
+  
+  tr.nc-tr { transition: background-color 0.2s; }
+  tr.nc-tr:hover { background-color: rgba(167,139,250,0.03); }
+
+  .msg-role {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700;
+    padding: 2px 7px; border-radius: 6px; text-transform: uppercase;
+  }
+  .msg-role.user { background: rgba(123,208,255,0.12); color: var(--secondary); border: 1px solid rgba(123,208,255,0.2); }
+  .msg-role.assistant { background: rgba(167,139,250,0.12); color: var(--primary-dim); border: 1px solid rgba(167,139,250,0.2); }
+
+  /* Charts */
+  .chart-container { position: relative; width: 100%; height: 260px; }
+
+  /* Live Pulse Indicator */
+  .live-badge {
+    background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25);
+    color: #f87171; font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    font-weight: 700; padding: 3px 10px; border-radius: 20px; display: inline-flex;
+    align-items: center; gap: 5px; text-transform: uppercase;
+  }
+  .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: #f87171;
+    animation: livePulse 1.6s infinite ease-in-out;
+  }
+  @keyframes livePulse {
+    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(248,113,113,0.5); }
+    50% { transform: scale(1.3); opacity: 0.6; box-shadow: 0 0 0 6px rgba(248,113,113,0); }
+  }
+
+  /* Gradient text */
+  .grad-txt { background: linear-gradient(135deg, #cebdff, #a78bfa, #ffafd3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ── MOBILE RESPONSIVENESS ── */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 1px 0 0 rgba(245,158,11,0.1), 8px 0 32px rgba(0,0,0,0.6) !important;
+    }
+    .sidebar.open {
+      transform: translateX(0);
+    }
+    .sidebar-header .sidebar-close-btn {
+      display: flex !important;
+    }
+    .main-wrap {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+    .topbar .menu-toggle-btn {
+      display: flex !important;
+    }
+    .topbar {
+      padding: 0 1rem;
+    }
+    .content-container {
+      padding: 1.25rem 0.85rem !important;
+      gap: 1.25rem !important;
+    }
+    .topbar-title {
+      font-size: 15px !important;
+    }
+    .stat-card {
+      padding: 1.25rem !important;
+      border-radius: 18px !important;
+    }
+    .bento-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.25rem !important;
+    }
+    .bento-grid > div {
+      grid-column: span 12 !important;
+    }
+    .bento-card {
+      padding: 1.5rem 1.15rem !important;
+      border-radius: 20px !important;
+    }
+    .chart-container {
+      height: 220px !important; /* Perfect rigid height limit for mobile graphs */
+    }
+    .table-wrap {
+      width: 100% !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    .nc-table {
+      min-width: 600px !important;
+    }
+    .user-chat-shortcut {
+      padding: 0.35rem 0.65rem !important;
+      font-size: 11.5px !important;
+    }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/app.js" defer></script>
+</head>
+<body>
+
+<!-- Atmosphere Blobs -->
+<div class="blob-wrap">
+  <div class="blob" style="width:45%;height:45%;top:-10%;left:-10%;background:radial-gradient(circle,#a78bfa,transparent 70%)"></div>
+  <div class="blob" style="width:35%;height:35%;bottom:-8%;right:-5%;background:radial-gradient(circle,#fbbf24,transparent 70%);animation-delay:-5s"></div>
+</div>
+<div class="ptc-wrap" id="ptc"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header" style="gap: 1.1rem">
+    <div class="logo-ring">
+      <div class="orbit"></div>
+      <span class="logo-icon" style="font-family:'Material Symbols Outlined'">restaurant</span>
+    </div>
+    <div>
+      <div style="font-family:'Clash Display',sans-serif;font-size:17px;font-weight:700;color:var(--primary);letter-spacing:-0.3px">Kolachi Restaurant</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--primary-dim)">Seaside Operations Console</div>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <a href="/admin" class="nav-item">
+      <span class="mi">dashboard</span>
+      <span>Instructions</span>
+    </a>
+    <a href="/admin-users" class="nav-item">
+      <span class="mi">group</span>
+      <span>Registered Users</span>
+    </a>
+    <a href="/admin-analytics" class="nav-item active">
+      <span class="mi">analytics</span>
+      <span>Inference Logs</span>
+    </a>
+    
+    <a href="/chat?admin=true" class="chat-nav-btn">
+      <span class="mi">forum</span>
+      <span>User Chat Workspace</span>
+    </a>
+  </div>
+
+  <div class="profile-card">
+    <div class="avatar" id="adminAvatar">Z</div>
+    <div style="flex:1;overflow:hidden;min-width:0">
+      <div style="font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="adminDisplayName">Zaid Ali</div>
+      <div style="display:flex;align-items:center;gap:5px;margin-top:3px">
+        <span class="plan-badge">Admin</span>
+      </div>
+    </div>
+    <button class="logout-btn" id="adminLogoutBtn" title="Sign out">
+      <span class="mi" style="font-size:20px">logout</span>
+    </button>
+  </div>
+</aside>
+
+<!-- MAIN WRAPPER -->
+<div class="main-wrap">
+  <header class="topbar">
+    <div class="topbar-title">
+      <span>Chatbot Analytics</span>
+      <span class="admin-badge">Inference Logs</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1.5rem">
+      <a href="/chat?admin=true" class="user-chat-shortcut">
+        <span class="mi" style="font-size:16px">open_in_new</span>
+        <span>User Chat</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="content-container">
+    <!-- Header -->
+    <div style="margin-bottom: 0.5rem">
+      <h2 style="font-family:'Clash Display',sans-serif;font-size:26px;font-weight:700;margin-bottom:0.25rem" class="grad-txt">System Inference Insights</h2>
+      <p style="font-size:14px;color:rgba(202,196,212,0.6);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em">REAL-TIME INFERENCE LOGS AND CONVERSATION METRICS</p>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="stats-grid">
+      <!-- Total Inferences -->
+      <div class="stat-card" style="animation-delay:0.1s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(167,139,250,0.15)">
+            <span class="mi" style="color:var(--primary-dim);font-size:20px">forum</span>
+          </div>
+        </div>
+        <span class="stat-lbl">Total Message Throughput</span>
+        <h3 class="stat-val count-up" data-value="0" id="totalMessagesStat">0</h3>
+      </div>
+      <!-- Unique sessions -->
+      <div class="stat-card" style="animation-delay:0.2s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(123,208,255,0.15)">
+            <span class="mi" style="color:var(--secondary);font-size:20px">devices</span>
+          </div>
+        </div>
+        <span class="stat-lbl">Active Chat Sessions</span>
+        <h3 class="stat-val count-up" data-value="0" id="totalUsersStat">0</h3>
+      </div>
+      <!-- Strict Refusals -->
+      <div class="stat-card" style="animation-delay:0.3s">
+        <div class="stat-header">
+          <div class="stat-icon-box" style="background:rgba(248,113,113,0.15)">
+            <span class="mi" style="color:#f87171;font-size:20px">security_update_warning</span>
+          </div>
+        </div>
+        <span class="stat-lbl">Off-Topic Denials</span>
+        <h3 class="stat-val count-up" data-value="0" id="refusalsStat" style="color:#f87171">0</h3>
+      </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+      <!-- Line Chart: Daily Volume -->
+      <div class="bento-card" style="grid-column: span 6; animation-delay: 0.15s">
+        <h4 class="card-title">📈 Daily Inference Volume</h4>
+        <p class="card-sub">Aggregated chat volume per calendar day</p>
+        <div class="chart-container">
+          <canvas id="dailyVolumeChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Bar Chart: Peak Usage Hours -->
+      <div class="bento-card" style="grid-column: span 6; animation-delay: 0.25s">
+        <h4 class="card-title">📊 Peak Usage Hours</h4>
+        <p class="card-sub">Inference volume grouped by hour of the day (24h UTC)</p>
+        <div class="chart-container">
+          <canvas id="peakHoursChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Table Card: Latest Logs -->
+      <div class="bento-card" style="grid-column: span 12; animation-delay: 0.35s">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem">
+          <div>
+            <h4 class="card-title" style="margin-bottom:0">📋 System Inference Log Stream</h4>
+            <p class="card-sub" style="margin-bottom:0">Real-time audit of recent incoming queries and AI responses</p>
+          </div>
+          <span class="live-badge">
+            <span class="pulse-dot"></span>
+            <span>Live Audit Feed</span>
+          </span>
+        </div>
+
+        <div class="table-wrap">
+          <table class="nc-table">
+            <thead>
+              <tr>
+                <th class="nc-th">User Email</th>
+                <th class="nc-th" style="width: 120px">Sender</th>
+                <th class="nc-th">Inference Content</th>
+                <th class="nc-th" style="width: 160px">Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="logsTableBody">
+              <tr class="nc-tr">
+                <td class="nc-td" colspan="4" style="text-align:center;color:var(--muted);padding:3rem 1.5rem">
+                  <div style="display:inline-block;animation:spin 1s linear infinite;font-family:Material Symbols Outlined;font-size:24px;color:var(--primary-dim)">progress_activity</div>
+                  <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:11px">COMPILING LIVE TELEMETRY LOGS...</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span class="t-icon" id="toast-icon">info</span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ── Rise-up particles
+(function(){
+  const w = document.getElementById('ptc');
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');p.className='ptc';
+    const sz=Math.random()*2+1+'px';
+    p.style.cssText=`width:${sz};height:${sz};left:${Math.random()*100}vw;opacity:${Math.random()*.4+.1};animation:particleRise ${Math.random()*12+7}s linear infinite;animation-delay:${Math.random()*14}s`;
+    w.appendChild(p);
+  }
+})();
+
+// ── Particle follow mouse movement
+document.addEventListener('mousemove', (e) => {
+  const blobs = document.querySelectorAll('.blob');
+  const { clientX, clientY } = e;
+  const xP = (clientX / window.innerWidth - 0.5) * 35;
+  const yP = (clientY / window.innerHeight - 0.5) * 35;
+  
+  blobs.forEach((blob, i) => {
+    const factor = (i + 1) * 0.25;
+    blob.style.transform = `translate(${xP * factor}px, ${yP * factor}px) scale(${1 + Math.abs(xP)/400})`;
+  });
+});
+</script>
+
+</body>
+</html>

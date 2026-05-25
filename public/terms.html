@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kolachi Restaurant | Terms & Conditions</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Satoshi:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07070B;
+    --surface: #100F15;
+    --card-bg: rgba(20, 19, 27, 0.72);
+    --border: rgba(245, 158, 11, 0.16);
+    --primary: #FBBF24;
+    --primary-btn-from: #FBBF24;
+    --primary-btn-to: #B45309;
+    --text: #F4F4F5;
+    --muted: rgba(212, 212, 216, 0.65);
+  }
+
+  @keyframes ncGradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  html { background: #07070B; }
+
+  body {
+    background: linear-gradient(-45deg, #07070B, #0F0E17, #170F25, #07070B);
+    background-size: 400% 400%;
+    animation: ncGradientFlow 12s ease infinite; /* slightly faster flow */
+    color: var(--text);
+    font-family: 'Satoshi', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+  }
+
+  body::-webkit-scrollbar { width: 6px; }
+  body::-webkit-scrollbar-track { background: transparent; }
+  body::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.2); border-radius: 10px; }
+
+  /* Page entry animation */
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Blobs - slightly faster and with a little blur */
+  @keyframes morphBlob {
+    0%,100% { border-radius: 40% 60% 70% 30%/40% 50% 60% 50%; }
+    34%      { border-radius: 70% 30% 50% 50%/30% 30% 70% 70%; }
+    67%      { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
+  }
+  .blob-wrap { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .blob { position: absolute; filter: blur(12px) !important; opacity: 0.28; animation: morphBlob 9s ease-in-out infinite; }
+
+  /* Card float */
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  .page-wrap { position: relative; z-index: 10; width: 100%; max-width: 680px; animation: pageIn 0.65s cubic-bezier(0.16,1,0.3,1) both; }
+  
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    border: 1.5px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem 2.25rem;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: floatCard 7s ease-in-out infinite;
+  }
+
+  /* Orbit Logo Header */
+  @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .logo-wrap { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 2rem; }
+  .logo-ring {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 64px; height: 64px; border-radius: 18px;
+    background: rgba(20, 22, 36, 0.95);
+    position: relative;
+    margin-bottom: 0.9rem;
+    box-shadow: 0 0 30px rgba(251,191,36,0.25);
+    border: 1px solid var(--border);
+  }
+  .logo-ring .orbit {
+    position: absolute; inset: -7px;
+    border: 1.5px solid rgba(251,191,36,0.3);
+    border-radius: 24px;
+    animation: orbitSpin 9s linear infinite;
+  }
+  .logo-icon {
+    font-family: 'Material Symbols Outlined';
+    font-size: 32px; color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    position: relative; z-index: 1;
+  }
+
+  .title-main { font-family: 'Clash Display', sans-serif; font-size: 24px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+  .title-sub { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; }
+
+  /* Content area styles */
+  .legal-content {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(244, 244, 245, 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .legal-content::-webkit-scrollbar { width: 5px; }
+  .legal-content::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); border-radius: 4px; }
+  .legal-content::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 4px; }
+
+  .legal-content h3 {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 0.5rem;
+    border-left: 2.5px solid var(--primary);
+    padding-left: 0.65rem;
+  }
+  .legal-content p { margin-bottom: 0.25rem; }
+  .legal-content ul { padding-left: 1.25rem; list-style-type: square; }
+  .legal-content li { margin-bottom: 0.35rem; }
+
+  /* Buttons */
+  .btn-wrap { display: flex; justify-content: center; }
+  .btn-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-btn-from), var(--primary-btn-to));
+    color: #fff; border: none; outline: none;
+    font-size: 13.5px; font-weight: 700;
+    padding: 0.75rem 1.75rem; border-radius: 12px;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 8px 24px -6px rgba(251,191,36,0.4);
+    transition: all 0.25s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+  .btn-back:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -4px rgba(251,191,36,0.55); }
+  .btn-back:active { transform: translateY(0) scale(0.98); }
+</style>
+</head>
+<body>
+
+<!-- Atmosphere Blobs -->
+<div class="blob-wrap">
+  <div class="blob" style="width:45%;height:45%;top:-5%;left:-8%;background:radial-gradient(circle,#a78bfa,transparent 70%)"></div>
+  <div class="blob" style="width:35%;height:35%;bottom:-5%;right:-5%;background:radial-gradient(circle,#7bd0ff,transparent 70%);animation-delay:-4.5s"></div>
+</div>
+
+<div class="page-wrap">
+  <div class="card">
+    
+    <!-- Rotating Gold Header Logo -->
+    <div class="logo-wrap">
+      <div class="logo-ring">
+        <div class="orbit"></div>
+        <span class="logo-icon">restaurant</span>
+      </div>
+      <h1 class="title-main">Kolachi Restaurant</h1>
+      <p class="title-sub">Terms & Conditions of Service</p>
+    </div>
+
+    <!-- Legal terms content -->
+    <div class="legal-content">
+      <p style="font-size: 13px; color: var(--muted); font-style: italic;">Last Updated: May 25, 2026</p>
+      
+      <p>Welcome to the digital guest representative platform of <strong>Kolachi Restaurant Group</strong>. By accessing our coastal interactive dining portal, you agree to comply with and be bound by the following terms and conditions. Please review them carefully.</p>
+
+      <h3>1. Coastline Seating & Reservation Guidelines</h3>
+      <p>All deck tables and seaside fine-dining placements at our Clifton Beach, Karachi location are subject to active reservation availability:</p>
+      <ul>
+        <li><strong>Timely Arrival:</strong> Reserved tables will be held for a maximum of 15 minutes past the scheduled booking time. Beyond this grace period, bookings will be automatically cancelled to accommodate walk-in seashore guests.</li>
+        <li><strong>Specific Seating Requests:</strong> While we endeavor to satisfy specific wooden deck table request details, Seaside placement is subject to local weather conditions and high-occupancy layouts.</li>
+      </ul>
+
+      <h3>2. Digital Dining Assistant & AI Conduct</h3>
+      <p>Our guest relations desk provides an interactive AI dining companion to facilitate customer service inquiries. The AI is specifically bound to provide accurate menu detail, deck booking schedules, and Clifton dining guidance.</p>
+      <ul>
+        <li>Users must interact with the dining representative respectfully. Any automated spam queries or scraping actions are strictly prohibited.</li>
+        <li>The system uses state-of-the-art inference engines. Information provided by the assistant regarding dietary allergens, dish preparation, or bookings should be cross-referenced with your physical host upon seating.</li>
+      </ul>
+
+      <h3>3. Buffet & Seashore Dining Offers</h3>
+      <p>All listed package listings, weekend special discounts, and deck buffet pricing options displayed inside the chat interface are subject to active availability. Kolachi reserves the right to modify menu prices or deck packages without prior notification.</p>
+
+      <h3>4. Contact & Seaside Operations</h3>
+      <p>For custom corporate banquets, high-volume sea-view catering events, or severe weather deck reservation updates, please contact the Clifton Beach hosting desk directly through our designated client portal.</p>
+    </div>
+
+    <!-- Back Button -->
+    <div class="btn-wrap">
+      <a href="/login" class="btn-back">
+        <span class="material-symbols-outlined" style="font-size:16px">arrow_back</span>
+        <span>Back to Sign In</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Smooth nav transition
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const h = a.getAttribute('href');
+    if (!h || h === '#' || h.startsWith('http')) return;
+    e.preventDefault();
+    document.body.style.transition = 'opacity 0.32s ease';
+    document.body.style.opacity = '0';
+    setTimeout(() => window.location.href = h, 340);
+  });
+</script>
+</body>
+</html>
