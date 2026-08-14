@@ -1,3 +1,19 @@
+# Kolachi Restaurant Guest Portal
+
+## Repository overview
+
+An AI-powered restaurant guest portal and operations console using Supabase and Groq.
+
+The existing README contains architecture, security, and deployment documentation.
+
+## Documentation status
+
+This overview is documentation-only. No application code, configuration, dependency manifest, or runtime behavior is changed by this update.
+
+---
+
+## Existing project notes
+
 # 🌊 Kolachi Restaurant — Beach Avenue Guest Portal & Operations Console
 
 A high-fidelity, premium, full-stack web application custom-engineered for the legendary **Kolachi Restaurant on Clifton Beach (Phase VIII, DHA, Karachi, Pakistan)**. 
